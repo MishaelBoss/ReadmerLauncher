@@ -1,0 +1,65 @@
+﻿<Page x:Class="Launcher.View.Pages.Settings"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Launcher.View.Pages"
+      mc:Ignorable="d" 
+      d:Background="#354D73"
+      d:DesignHeight="600" d:DesignWidth="1000"
+      Title="Settings">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Label Content="Настройки" Foreground="White" FontSize="40" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid Height="150" Width="500" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Grid>
+                    <Border Height="150" Width="500" CornerRadius="15" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#383838" Opacity="0.8"/>
+                </Grid>
+                <Border BorderThickness="15,10,15,15" Background="#4a4848" CornerRadius="15" Opacity="0.8"/>
+                <Grid Background="Transparent">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Label HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" FontSize="22" Content="Настройка обновлений" Margin="0,10,0,0"/>
+                        <CheckBox Name="CheckBox" Content="Обновлять при наличие обновлений" HorizontalAlignment="Center" VerticalAlignment="Top" Width="220" Height="15" Foreground="White" Unchecked="CheckBox_Unchecked" Checked="CheckBox_Cecked" Margin="0,55,0,0" Opacity="1"/>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Button Name="ButtonCheckUpdate" Style="{StaticResource ButtonSettings}" Click="ButtonCheckUpdateClick" Content="Проверить на обновление" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="1" Visibility="Visible" Grid.ColumnSpan="2" Margin="150,0,0,0"/>
+                        <Button Name="ButtonDownloadUpdate" Style="{StaticResource ButtonSettings}" Click="ButtonDownloadUpdateClick" Content="Скачать новое обновление" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="1" Visibility="Hidden" Grid.ColumnSpan="2" Margin="150,0,0,0"/>
+                        <Button Name="ButtonInformationNewVersion" Style="{StaticResource ButtonInformation}" Width="114" Height="20" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,40,0,0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="80"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Column="0" Source="/View/Resources/Image/infomation.png"/>
+                                <TextBlock Grid.Column="1" Text="О новой версии" VerticalAlignment="Center" FontSize="10" HorizontalAlignment="Center"/>
+                            </Grid>
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid Height="50" Width="200" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Grid>
+                    <Border Height="50" Width="200" CornerRadius="15" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#383838" Opacity="0.8"/>
+                </Grid>
+                <Border BorderThickness="5,5,5,5" Background="#4a4848" CornerRadius="15" Opacity="0.8"/>
+                <Grid Background="Transparent">
+                    <Label Name="currentVersion" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,5,0,0" Foreground="White" FontSize="11" Content="Моя версия:"/>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

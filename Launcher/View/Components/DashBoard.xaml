@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="Launcher.View.Components.DashBoard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Launcher.View.Components"
+             mc:Ignorable="d" 
+             d:DesignHeight="50" d:DesignWidth="1000"
+             Background="Transparent">
+    
+    <Border BorderThickness="0.5" CornerRadius="15, 15, 0, 0" BorderBrush="#FF303031" Background="Transparent">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="70"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="70"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Image Source="/View/Resources/Image/Logo.png" Width="40" HorizontalAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Column="1">
+                <StackPanel Orientation="Horizontal">
+                    <Button Style="{StaticResource ButtonTopSliderBar}" Content="Главная" Command="{Binding openHomePage}"/>
+                    <Button Style="{StaticResource ButtonTopSliderBar}" Content="Мои игры" Command="{Binding openMyGamesPage}"/>
+                    <Button Style="{StaticResource ButtonTopSliderBar}" Content="Настройки" Command="{Binding openSettingsPage}"/>
+                    <Button Style="{StaticResource ButtonTopSliderBar}" Content="Наш дискорд" Command="{Binding openDiscord}"/>
+                </StackPanel>
+            </Grid>
+        
+            <Grid Grid.Column="2">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" FlowDirection="RightToLeft" >
+                    <Button Style="{StaticResource ButtonTopSliderBarClose}" Click="Close">
+                        <Button.Background>
+                            <ImageBrush ImageSource="/View/Resources/Image/closeproject.png"/>
+                        </Button.Background>
+                    </Button>
+                    <Button Style="{StaticResource ButtonTopSliderBarCollpase}" Click="Collapse">
+                        <Button.Background>
+                            <ImageBrush ImageSource="/View/Resources/Image/collapseProject.png" Stretch="Fill" TileMode="FlipXY"/>
+                        </Button.Background>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Grid>
+</Border>
+</UserControl>

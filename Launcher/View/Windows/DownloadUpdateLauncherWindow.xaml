@@ -1,0 +1,26 @@
+﻿<Window x:Class="Launcher.View.Windows.DownloadUpdateLauncherWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Launcher.View.Windows"
+        mc:Ignorable="d"
+        Background="Transparent"
+        AllowsTransparency="True"
+        Title="DownloadUpdateLauncherWindow" MaxHeight="150" MaxWidth="350" Height="150" Width="350" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize">
+    
+    <Window.Clip>
+        <RectangleGeometry Rect="0,0,1000,600" RadiusX="10" RadiusY="10"/>
+    </Window.Clip>
+
+    <Border Style="{StaticResource WindowBorderStyle2}" PreviewMouseLeftButtonDown="WindowMove">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" x:Name="LabelContentDownload" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Content="Идет загрузка..."/>
+            <Button Style="{DynamicResource ButtonCancelDownloadUpdate}" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Black" Content="Отмена" Click="ButtonCancelClick"/>
+        </Grid>
+    </Border>
+</Window>

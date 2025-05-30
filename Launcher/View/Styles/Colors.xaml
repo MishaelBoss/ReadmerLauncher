@@ -1,0 +1,13 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <SolidColorBrush x:Key="BackgroundColor" Color="#354D73"/>
+    
+    <SolidColorBrush x:Key="ContentColorButton_01_White" Color="White"/>
+    <SolidColorBrush x:Key="ContentColorButton_01_Wheat" Color="Wheat"/>
+    
+    <SolidColorBrush x:Key="ContentColorButton_02_Dark_green" Color="#0c9643"/>
+    <SolidColorBrush x:Key="ContentColorButton_02_Rich_dark_green" Color="#18783e"/>
+    <SolidColorBrush x:Key="ContentColorButton_02_Cyan_green" Color="#014d1f"/>
+    <SolidColorBrush x:Key="ContentColorButton_02_Dark_cyan" Color="#13a84e"/>
+</ResourceDictionary>

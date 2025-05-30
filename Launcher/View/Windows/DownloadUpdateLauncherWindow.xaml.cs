@@ -1,7 +1,6 @@
 ﻿using CheckConnectInternet;
 using Launcher.View.Pages;
 using LauncherLes1.View.Resources.Script;
-using Newtonsoft.Json.Linq;
 using System.IO;
 using System.IO.Compression;
 using System.Net;
@@ -16,6 +15,12 @@ namespace Launcher.View.Windows
         public DownloadUpdateLauncherWindow()
         {
             InitializeComponent();
+            Initialize();
+        }
+
+        private void Initialize() {
+            ShowInTaskbar = false;
+            Topmost = true;
             Task task = DownloadFile();
         }
 

@@ -1,7 +1,9 @@
 ﻿using CheckConnectInternet;
+using GalaSoft.MvvmLight.Helpers;
 using Launcher.Model;
 using Launcher.View.Windows;
 using Newtonsoft.Json;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Reflection;
 using System.Windows;
@@ -16,6 +18,7 @@ namespace Launcher.View.Pages
         private string curverVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
         public static string fileDownload;
+        public static string aboutVersion;
 
         public Settings()
         {
@@ -31,7 +34,12 @@ namespace Launcher.View.Pages
 
             string fileDownloadLink = data.fileDownloadLink;
             string newVersion = data.version;
+            aboutVersion = data.aboutVersionLink;
             fileDownload = fileDownloadLink;
+            if (data.isEmergencyUpdate) {
+                DownloadUpdateLauncherWindow downloadUpdateLauncherWindow = new DownloadUpdateLauncherWindow();
+                downloadUpdateLauncherWindow.Show();
+            }
 
             string readver = newVersion;
 
@@ -43,6 +51,8 @@ namespace Launcher.View.Pages
                 ButtonDownloadUpdate.Visibility = Visibility.Visible;
                 ButtonCheckUpdate.Visibility = Visibility.Hidden;
                 currentVersion.Content = "Моя версия: " + curverVersion + " \nНовая версия: " + readver;
+                if(aboutVersion == string.Empty || aboutVersion == null) ButtonInformationNewVersion.Visibility = Visibility.Hidden;
+                else ButtonInformationNewVersion.Visibility= Visibility.Visible;
             }
             else
             {
@@ -83,7 +93,12 @@ namespace Launcher.View.Pages
 
         private void ButtonMoreInformationClick(object sender, RoutedEventArgs e)
         {
-
+            try{
+                Process.Start(new ProcessStartInfo(aboutVersion) { UseShellExecute = true });
+            }
+            catch (Exception ex) {
+                MessageBox.Show($"Ошибка при открытие: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

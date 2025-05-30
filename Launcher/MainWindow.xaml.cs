@@ -26,12 +26,15 @@ namespace Launcher
         private void BackgroundUIFunction(object sender, EventArgs ea) {
             if (Internet.connect())
             {
-                if (ErrorConnectInternet.isIgnoreErrorToConnectInternet) {
-                    Warning warning = new Warning();
-                    GridMainFrame.Children.Add(warning);
-                    warning.StartWarningAnimation();
+                if (ErrorConnectInternet.isIgnoreErrorToConnectInternet)
+                {
+                    if (!GridMainFrame.Children.Contains(userControlWarning)) {
+                        GridMainFrame.Children.Add(userControlWarning);
+                        userControlWarning.StartWarningAnimation();
+                    }
                 }
             }
+            else if (GridMainFrame.Children.Contains(userControlWarning)) GridMainFrame.Children.Remove(userControlWarning);
         }
 
         private void TopBorder_MouseDown(object sender, MouseButtonEventArgs e)

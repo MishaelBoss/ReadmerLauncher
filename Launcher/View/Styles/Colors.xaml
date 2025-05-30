@@ -2,7 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     
     <SolidColorBrush x:Key="BackgroundColor" Color="#354D73"/>
-    
+    <SolidColorBrush x:Key="BackgroundColor_02" Color="#35466e"/>
+
     <SolidColorBrush x:Key="ContentColorButton_01_White" Color="White"/>
     <SolidColorBrush x:Key="ContentColorButton_01_Wheat" Color="Wheat"/>
     

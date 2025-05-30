@@ -1,5 +1,4 @@
 ﻿using CheckConnectInternet;
-using GalaSoft.MvvmLight.Helpers;
 using Launcher.Model;
 using Launcher.View.Windows;
 using Newtonsoft.Json;

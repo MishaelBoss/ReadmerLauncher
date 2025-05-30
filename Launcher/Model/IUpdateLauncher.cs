@@ -6,8 +6,10 @@ namespace Launcher.Model
     {
         [JsonProperty("version")]
         public string version { get; set; }
+
         [JsonProperty("isEmergencyUpdate")]
         public bool isEmergencyUpdate { get; set; }
+
         [JsonProperty("fileDownloadLink")]
         public string fileDownloadLink { get; set; }
 

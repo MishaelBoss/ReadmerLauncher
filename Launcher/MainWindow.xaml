@@ -28,9 +28,9 @@
                 <controls:DashBoard/>
             </Grid>
             <Grid Grid.Row="1">
-                <Image Source="/View/Resources/Image/Warning.png" Name="Warning" Opacity="0" Width="32" Height="32" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.Column="1" Margin="0,10,10,456" Grid.Row="1"/>
                 <Frame Content="{Binding ContentPage}" NavigationUIVisibility="Hidden"/>
-                <controls:ErrorConnectInternet Visibility="Hidden"/>
+                <controls:Warning  Margin="0,10,10,456"/>
+                <controls:ErrorConnectInternet/>
             </Grid>
         </Grid>
     </Border>

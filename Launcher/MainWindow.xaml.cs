@@ -8,7 +8,8 @@ namespace Launcher
 {
     public partial class MainWindow : Window
     {
-        private ErrorConnectInternet _userControl;
+        private ErrorConnectInternet userControl = new ErrorConnectInternet();
+        private Warning userControlWarning = new Warning();
 
         public MainWindow()
         {
@@ -18,28 +19,17 @@ namespace Launcher
         }
 
         private void Initialize() {
-/*            if (Internet.connect()) {
-                ErrorConnectInternet userControl = new ErrorConnectInternet();
-                _userControl.Visibility = Visibility.Visible;
-            }*/
+            if (Internet.connect()) userControl.Visibility = Visibility.Visible;
+            else userControl.Visibility = Visibility.Hidden;
         }
 
         private void BackgroundUIFunction(object sender, EventArgs ea) {
             if (Internet.connect())
             {
-                StartWarningAnimation();
+                if (ErrorConnectInternet.isIgnoreErrorToConnectInternet)
+                    userControlWarning.Visibility = Visibility.Visible;
             }
-            else Warning.Opacity = 0;
-        }
-
-        private async void StartWarningAnimation()
-        {
-            Warning.Opacity = 0;
-            while (Warning.Opacity < 1)
-            {
-                Warning.Opacity += 0.1;
-                await Task.Delay(100);
-            }
+            else userControlWarning.Visibility = Visibility.Hidden;
         }
 
         private void TopBorder_MouseDown(object sender, MouseButtonEventArgs e)

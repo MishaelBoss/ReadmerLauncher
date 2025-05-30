@@ -80,5 +80,10 @@ namespace Launcher.View.Pages
         {
             CheckUpdate();
         }
+
+        private void ButtonMoreInformationClick(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -36,7 +36,7 @@
                     <Grid Grid.Row="1">
                         <Button Name="ButtonCheckUpdate" Style="{StaticResource ButtonSettings}" Click="ButtonCheckUpdateClick" Content="Проверить на обновление" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="1" Visibility="Visible" Grid.ColumnSpan="2" Margin="150,0,0,0"/>
                         <Button Name="ButtonDownloadUpdate" Style="{StaticResource ButtonSettings}" Click="ButtonDownloadUpdateClick" Content="Скачать новое обновление" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="1" Visibility="Hidden" Grid.ColumnSpan="2" Margin="150,0,0,0"/>
-                        <Button Name="ButtonInformationNewVersion" Style="{StaticResource ButtonInformation}" Width="114" Height="20" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,40,0,0">
+                        <Button Name="ButtonInformationNewVersion" Style="{StaticResource ButtonInformation}" Width="114" Height="20" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,40,0,0" Click="ButtonMoreInformationClick">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>

@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Launcher.View.Components
@@ -6,6 +7,7 @@ namespace Launcher.View.Components
     public partial class ErrorConnectInternet : UserControl
     {
         public static bool isIgnoreErrorToConnectInternet = false;
+
         public ErrorConnectInternet()
         {
             InitializeComponent();

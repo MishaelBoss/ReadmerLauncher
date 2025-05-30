@@ -4,8 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:Launcher.ViewModel"
-        xmlns:local="clr-namespace:Launcher"
         xmlns:controls="clr-namespace:Launcher.View.Components"
+        xmlns:local="clr-namespace:Launcher"
         mc:Ignorable="d"
         AllowsTransparency="True"
         Title="MainWindow" Height="600" Width="1000" MinHeight="600" MinWidth="1000" MaxHeight="1200" MaxWidth="2000" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize">
@@ -27,9 +27,8 @@
             <Grid Grid.Row="0" MouseDown="TopBorder_MouseDown">
                 <controls:DashBoard/>
             </Grid>
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="1" x:Name="GridMainFrame">
                 <Frame Content="{Binding ContentPage}" NavigationUIVisibility="Hidden"/>
-                <controls:Warning  Margin="0,10,10,456"/>
                 <controls:ErrorConnectInternet/>
             </Grid>
         </Grid>

@@ -26,10 +26,12 @@ namespace Launcher
         private void BackgroundUIFunction(object sender, EventArgs ea) {
             if (Internet.connect())
             {
-                if (ErrorConnectInternet.isIgnoreErrorToConnectInternet)
-                    userControlWarning.Visibility = Visibility.Visible;
+                if (ErrorConnectInternet.isIgnoreErrorToConnectInternet) {
+                    Warning warning = new Warning();
+                    GridMainFrame.Children.Add(warning);
+                    warning.StartWarningAnimation();
+                }
             }
-            else userControlWarning.Visibility = Visibility.Hidden;
         }
 
         private void TopBorder_MouseDown(object sender, MouseButtonEventArgs e)

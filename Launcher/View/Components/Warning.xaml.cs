@@ -7,15 +7,14 @@ namespace Launcher.View.Components
         public Warning()
         {
             InitializeComponent();
-            StartWarningAnimation();
         }
 
-        private async void StartWarningAnimation()
+        public async void StartWarningAnimation()
         {
-            Warning.Opacity = 0;
-            while (Warning.Opacity < 1)
+            WarningImage.Opacity = 0;
+            while (WarningImage.Opacity <= 1)
             {
-                Warning.Opacity += 0.1;
+                WarningImage.Opacity += 0.1;
                 await Task.Delay(100);
             }
         }

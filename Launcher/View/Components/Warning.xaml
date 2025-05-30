@@ -7,6 +7,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="32" d:DesignWidth="32">
     <Grid>
-        <Image Source="/View/Resources/Image/Warning.png" x:Name="Warning" Opacity="0" Width="32" Height="32" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.Column="1" Grid.Row="1"/>
+        <Image Source="/View/Resources/Image/Warning.png" x:Name="WarningImage" Opacity="0" Visibility="Visible" Width="32" Height="32" Margin="0,10,10,456" VerticalAlignment="Top" HorizontalAlignment="Right"/>
     </Grid>
 </UserControl>

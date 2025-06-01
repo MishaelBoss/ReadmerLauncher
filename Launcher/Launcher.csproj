@@ -10,9 +10,11 @@
     <ApplicationManifest>E:\Перенос\LauncherLes1\LauncherLes1\app.manifest</ApplicationManifest>
     <PackageIcon></PackageIcon>
     <ApplicationIcon>View\Resources\Image\Logo\LogoProject.ico</ApplicationIcon>
-    <FileVersion>1.0.0.2</FileVersion>
-    <AssemblyVersion>1.0.0.2</AssemblyVersion>
+    <FileVersion>1.0.0.7</FileVersion>
+    <AssemblyVersion>1.0.0.7</AssemblyVersion>
     <PackageReleaseNotes></PackageReleaseNotes>
+    <RepositoryUrl>https://github.com/MishaelBoss/ReadmerLauncher</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,8 +23,10 @@
     <None Remove="View\Resources\Image\CollapseProject.png" />
     <None Remove="View\Resources\Image\collapseproject_white.png" />
     <None Remove="View\Resources\Image\Defender Rat.png" />
+    <None Remove="View\Resources\Image\Download.png" />
     <None Remove="View\Resources\Image\Infomation.png" />
     <None Remove="View\Resources\Image\Logo.png" />
+    <None Remove="View\Resources\Image\Sad_smiley.jpg" />
     <None Remove="View\Resources\Image\Warning.png" />
   </ItemGroup>
 
@@ -36,6 +40,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.5" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.5" />
     <PackageReference Include="MvvmCross" Version="9.3.1" />
     <PackageReference Include="MvvmLightLibs" Version="5.4.1.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
@@ -57,15 +63,36 @@
     <Resource Include="View\Resources\Image\Defender Rat.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="View\Resources\Image\Download.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="View\Resources\Image\Infomation.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="View\Resources\Image\Logo.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="View\Resources\Image\Sad_smiley.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="View\Resources\Image\Warning.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>

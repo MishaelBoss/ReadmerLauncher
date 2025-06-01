@@ -1,5 +1,5 @@
 ﻿using CheckConnectInternet;
-using Launcher.View.Pages;
+using Launcher.View.Resources.Script;
 using LauncherLes1.View.Resources.Script;
 using System.IO;
 using System.IO.Compression;
@@ -32,50 +32,60 @@ namespace Launcher.View.Windows
         }
         #endregion
 
-        CancellationTokenSource cancelTokenSource = new CancellationTokenSource();
+        CancellationTokenSource cancelTokenSource;
 
         private async Task DownloadFile()
         {
-            CancellationToken token = cancelTokenSource.Token;
-
-            if (token.IsCancellationRequested)
-                return;
-
-            await Task.Delay(1000);
-
-            await Task.Run(async () =>
+            try
             {
-                using (WebClient wc = new WebClient())
-                {
-                    if (Internet.connect())
-                    {
-                        if (!string.IsNullOrEmpty(Paths.zipPathUpdate) && File.Exists(Paths.zipPathUpdate)) File.Delete(Paths.zipPathUpdate);
-                        else if (!string.IsNullOrEmpty(Paths.exeLauncherUpdate) && File.Exists(Paths.exeLauncherUpdate)) File.Delete(Paths.exeLauncherUpdate);
-                        try
-                        {
-                            Uri uri = new Uri(Settings.fileDownload);
-                            wc.DownloadProgressChanged += new DownloadProgressChangedEventHandler(ProgressMessageHandler_HttpReceiveProgress);
-                            await wc.DownloadFileTaskAsync(uri, "UpdateLauncher.zip");
-                            ZipFile.ExtractToDirectory("UpdateLauncher.zip", Paths.exetraPath);
-                            File.Delete("UpdateLauncher.zip");
+                if (cancelTokenSource == null || cancelTokenSource.IsCancellationRequested) cancelTokenSource = new CancellationTokenSource();
 
-                            CmdClass.Cmd($"taskkill /f /im \"{Arguments.exenames}\" && timeout /t 1 && del \"{Arguments.execPath}\" && ren NewLauncher.exe \"{Arguments.exenames}\" && \"{Arguments.execPath}\"");
-                        }
-                        catch (OperationCanceledException)
-                        {
-                            MessageBox.Show("Загрузка была отменена.", "Отмена", MessageBoxButton.OK, MessageBoxImage.Information);
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show($"Ошибка при загрузке файла: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                        }
-                    }
-                    else
+                CancellationToken token = cancelTokenSource.Token;
+
+                await Task.Delay(1000);
+
+                await Task.Run(async () =>
+                {
+                    using (WebClient wc = new WebClient())
                     {
-                        MessageBox.Show("Ошибка", "Подключитесь к интернету", MessageBoxButton.OK, MessageBoxImage.Information);
+                        if (Internet.connect())
+                        {
+                            if (!string.IsNullOrEmpty(Paths.zipPathUpdate) && File.Exists(Paths.zipPathUpdate)) File.Delete(Paths.zipPathUpdate);
+                            else if (!string.IsNullOrEmpty(Paths.exeLauncherUpdate) && File.Exists(Paths.exeLauncherUpdate)) File.Delete(Paths.exeLauncherUpdate);
+                            try
+                            {
+                                Uri uri = new Uri(Arguments.fileDownloadLink);
+                                wc.DownloadProgressChanged += new DownloadProgressChangedEventHandler(ProgressMessageHandler_HttpReceiveProgress);
+                                await wc.DownloadFileTaskAsync(uri, "UpdateLauncher.zip");
+                                ZipFile.ExtractToDirectory("UpdateLauncher.zip", Paths.exetraPath);
+                                File.Delete("UpdateLauncher.zip");
+
+                                CmdClass.Cmd($"taskkill /f /im \"{Arguments.exenames}\" && timeout /t 1 && del \"{Arguments.execPath}\" && ren NewLauncher.exe \"{Arguments.exenames}\" && \"{Arguments.execPath}\"");
+                            }
+                            catch (OperationCanceledException ex)
+                            {
+                                Loges.LoggingProcess(LogLevel.INFO, ex.Message, Loges.GetPageInfo(ex));
+                                MessageBox.Show("Загрузка была отменена.", "Отмена", MessageBoxButton.OK, MessageBoxImage.Information);
+                            }
+                            catch (Exception ex)
+                            {
+                                Loges.LoggingProcess(LogLevel.ERROR, ex.Message, Loges.GetPageInfo(ex));
+                                MessageBox.Show($"Ошибка при загрузке файла: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                            }
+                        }
+                        else
+                        {
+                            Loges.LoggingProcess(LogLevel.INFO, "Подключитесь к интернету");
+                            MessageBox.Show("Ошибка", "Подключитесь к интернету", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
                     }
-                }
-            }, token);
+                }, token);
+            }
+            catch (Exception ex)
+            {
+                Loges.LoggingProcess(LogLevel.INFO, ex.Message, Loges.GetPageInfo(ex));
+                MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void ProgressMessageHandler_HttpReceiveProgress(object sender, DownloadProgressChangedEventArgs e)
@@ -87,11 +97,10 @@ namespace Launcher.View.Windows
             text.Dispatcher.Invoke(() => text.Content = message);
         }
 
-        private void ButtonCancelClick(object sender, RoutedEventArgs e)
+        private void Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
             cancelTokenSource.Cancel();
-
+            Close();
         }
     }
 }

@@ -13,14 +13,16 @@
         <RectangleGeometry Rect="0,0,1000,600" RadiusX="10" RadiusY="10"/>
     </Window.Clip>
 
-    <Border Style="{StaticResource WindowBorderStyle2}" PreviewMouseLeftButtonDown="WindowMove">
+    <Border Style="{StaticResource WindowBorderStyle2}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="100"/>
                 <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
-            <Label Grid.Row="0" x:Name="LabelContentDownload" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Content="Идет загрузка..."/>
-            <Button Style="{DynamicResource ButtonCancelDownloadUpdate}" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Black" Content="Отмена" Click="ButtonCancelClick"/>
+            <Grid Grid.Row="0" PreviewMouseLeftButtonDown="WindowMove">
+                <Label Name="LabelContentDownload" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Content="Идет загрузка..."/>
+            </Grid>
+            <Button Style="{DynamicResource ButtonCancelDownloadUpdate}" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Black" Content="Отмена" Click="Click"/>
         </Grid>
     </Border>
 </Window>

@@ -1,6 +1,8 @@
 ﻿using CheckConnectInternet;
 using Launcher.View.Components;
 using Launcher.View.Resources.Script;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using System.Windows;
 using System.Windows.Input;
 
@@ -8,23 +10,33 @@ namespace Launcher
 {
     public partial class MainWindow : Window
     {
-        private ErrorConnectInternet userControl = new ErrorConnectInternet();
         private Warning userControlWarning = new Warning();
+
+        private readonly IHost _host;
 
         public MainWindow()
         {
             InitializeComponent();
             Initialize();
-            Update.UpdateUI(BackgroundUIFunction, 0, 0, 5);
+
+            _host = Host.CreateDefaultBuilder().ConfigureServices(services => {
+                services.AddHostedService<MyBackgroundService>();
+            }).Build();
+
+            Task.Run(() => _host.Run());
         }
 
         private void Initialize() {
-            if (Internet.connect()) userControl.Visibility = Visibility.Visible;
-            else userControl.Visibility = Visibility.Hidden;
+            InitializeFolderAndFile.Initialize();
+
+            if (!Internet.connect()) Test.Visibility = Visibility.Visible;
+            else Test.Visibility = Visibility.Hidden;
+
+            Update.UpdateUI(BackgroundUIFunction, 0, 0, 5);
         }
 
         private void BackgroundUIFunction(object sender, EventArgs ea) {
-            if (Internet.connect())
+            if (!Internet.connect())
             {
                 if (ErrorConnectInternet.isIgnoreErrorToConnectInternet)
                 {
@@ -41,6 +53,12 @@ namespace Launcher
         {
             if (e.LeftButton == MouseButtonState.Pressed)
                 DragMove();
+        }
+
+        protected override async void OnClosed(EventArgs e)
+        {
+            /*            await _host.StopAsync();
+                        base.OnClosed(e);*/
         }
     }
 }

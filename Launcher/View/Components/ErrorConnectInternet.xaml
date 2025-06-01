@@ -14,8 +14,8 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <Image Source="/View/Resources/Image/sad_smiley.jpg" Width="150" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,94,0,0"/>
-            <Label Content="Проблема c подключением к интернету" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,244,0,0"/>
+            <Image Source="/View/Resources/Image/Sad_smiley.jpg" Width="150" HorizontalAlignment="Center" VerticalAlignment="Top"  Margin="0,94,0,0"/>
+            <Label Content="Проблема c подключением к интернету" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
         </Grid>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>

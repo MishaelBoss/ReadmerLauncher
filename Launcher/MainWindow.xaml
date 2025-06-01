@@ -29,7 +29,7 @@
             </Grid>
             <Grid Grid.Row="1" Name="GridMainFrame">
                 <Frame Content="{Binding ContentPage}" NavigationUIVisibility="Hidden"/>
-                <controls:ErrorConnectInternet/>
+                <controls:ErrorConnectInternet x:Name="Test" Visibility="Hidden"/>
             </Grid>
         </Grid>
     </Border>

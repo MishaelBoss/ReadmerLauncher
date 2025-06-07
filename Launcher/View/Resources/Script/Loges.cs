@@ -17,7 +17,7 @@ namespace Launcher.View.Resources.Script
             }
         }
 
-        public static void LoggingProcess(LogLevel level, string message, string page = null, string targetsite = null, string stacktrace = null)
+        public static void LoggingProcess(LogLevel level, string message = null, Exception ex = null)
         {
             lock (_lockObj)
             {
@@ -29,7 +29,7 @@ namespace Launcher.View.Resources.Script
                     CreateNewLogFile(todayDate);
                 }
 
-                WriteLogEntry(level, message, page, targetsite, stacktrace);
+                WriteLogEntry(level, message, ex);
             }
         }
 
@@ -63,9 +63,9 @@ namespace Launcher.View.Resources.Script
             }
         }
 
-        private static void WriteLogEntry(LogLevel level, string message, string page = null, string targetsite = null, string stacktrace = null)
+        private static void WriteLogEntry(LogLevel level, string message = null, Exception ex = null)
         {
-            string entry = $"[{DateTime.Now:HH:mm:ss}]-[{level}:] {message} - index page error - {page} {targetsite} {stacktrace} {Environment.NewLine}";
+            string entry = $"[{DateTime.Now:HH:mm:ss}]-[{level}:] {message} {ex.Message} - index page error - {GetPageInfo(ex)} {Environment.NewLine}";
             File.AppendAllText(_currentLogPath, entry);
         }
 

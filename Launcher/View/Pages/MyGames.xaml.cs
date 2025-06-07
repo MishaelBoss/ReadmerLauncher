@@ -1,25 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using Launcher.View.Components;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Launcher.View.Pages
 {
     public partial class MyGames : Page
     {
+        private Game game = new Game();
+
         public MyGames()
         {
             InitializeComponent();
+
+            var btn = new ButtonGame()
+            {
+
+            };
+            LeftBorder.Children.Add(btn);
         }
     }
 }

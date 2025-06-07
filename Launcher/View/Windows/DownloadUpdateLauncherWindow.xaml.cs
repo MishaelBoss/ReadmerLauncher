@@ -1,6 +1,7 @@
 ﻿using CheckConnectInternet;
 using Launcher.View.Resources.Script;
 using LauncherLes1.View.Resources.Script;
+using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Net;
@@ -21,6 +22,8 @@ namespace Launcher.View.Windows
         private void Initialize() {
             ShowInTaskbar = false;
             Topmost = true;
+            if (Arguments.isEmergencyUpdate) Button.Visibility = Visibility.Hidden;
+            else Button.Visibility = Visibility.Visible;
             Task task = DownloadFile();
         }
 
@@ -46,9 +49,10 @@ namespace Launcher.View.Windows
 
                 await Task.Run(async () =>
                 {
-                    using (WebClient wc = new WebClient())
+                    var watch = new Stopwatch();
+                    if (Internet.connect())
                     {
-                        if (Internet.connect())
+                        using (WebClient wc = new WebClient())
                         {
                             if (!string.IsNullOrEmpty(Paths.zipPathUpdate) && File.Exists(Paths.zipPathUpdate)) File.Delete(Paths.zipPathUpdate);
                             else if (!string.IsNullOrEmpty(Paths.exeLauncherUpdate) && File.Exists(Paths.exeLauncherUpdate)) File.Delete(Paths.exeLauncherUpdate);
@@ -64,26 +68,25 @@ namespace Launcher.View.Windows
                             }
                             catch (OperationCanceledException ex)
                             {
-                                Loges.LoggingProcess(LogLevel.INFO, ex.Message, Loges.GetPageInfo(ex));
+                                Loges.LoggingProcess(LogLevel.INFO, ex: ex);
                                 MessageBox.Show("Загрузка была отменена.", "Отмена", MessageBoxButton.OK, MessageBoxImage.Information);
                             }
                             catch (Exception ex)
                             {
-                                Loges.LoggingProcess(LogLevel.ERROR, ex.Message, Loges.GetPageInfo(ex));
+                                Loges.LoggingProcess(LogLevel.ERROR, ex: ex);
                                 MessageBox.Show($"Ошибка при загрузке файла: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                             }
                         }
-                        else
-                        {
-                            Loges.LoggingProcess(LogLevel.INFO, "Подключитесь к интернету");
-                            MessageBox.Show("Ошибка", "Подключитесь к интернету", MessageBoxButton.OK, MessageBoxImage.Information);
-                        }
+                    }
+                    else {
+                        Loges.LoggingProcess(LogLevel.INFO, "Подключитесь к интернету");
+                        MessageBox.Show("Ошибка", "Подключитесь к интернету", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                 }, token);
             }
             catch (Exception ex)
             {
-                Loges.LoggingProcess(LogLevel.INFO, ex.Message, Loges.GetPageInfo(ex));
+                Loges.LoggingProcess(LogLevel.INFO, ex: ex);
                 MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -93,7 +96,7 @@ namespace Launcher.View.Windows
 
         private static void DownloadProgressCallback(object sender, DownloadProgressChangedEventArgs e, Label text)
         {
-            string message = $"{e.BytesReceived} загружено из {e.TotalBytesToReceive} байт. {e.ProgressPercentage} % завершено...";
+            string message = $"{e.BytesReceived} загружено из {e.TotalBytesToReceive} байт. {e.ProgressPercentage} % завершено... \n {Arguments.Speed_download_update}";
             text.Dispatcher.Invoke(() => text.Content = message);
         }
 

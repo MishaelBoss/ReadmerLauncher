@@ -1,4 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <protocol>
   <update_if_is_update>False</update_if_is_update>
+  <autoload>True</autoload>
+  <receive_notifications>True</receive_notifications>
+  <speed>
+    <update id="1">999999</update>
+    <game id="2">999999</game>
+  </speed>
 </protocol>

@@ -18,11 +18,17 @@ namespace Launcher.View.Resources.Script
         }
 
         private static void createxml() {
-            XDocument xdoc = new XDocument(new XElement("protocol",
+            int trackId = 1;
+            XDocument xdoc = new XDocument(
+                new XElement("protocol",
                 new XElement("update_if_is_update", $"{false}"),
                 new XElement("autoload", $"{true}"),
-                new XElement("receive_notifications", $"{true}")));
-            string realPath = Path.Combine(Paths.config, "appsettings.xml");
+                new XElement("receive_notifications", $"{true}"),
+                new XElement("speed",
+                    new XElement("update", $"{999999}", new XAttribute("id", trackId++)),
+                        new XElement("game", $"{999999}", new XAttribute("id", trackId++)))));
+
+            string realPath = Path.Combine(Paths.config, Arguments.nameXml);
             xdoc.Save(realPath);
         }
     }

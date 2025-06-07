@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace Launcher.View.Pages
 {
-    /// <summary>
-    /// Логика взаимодействия для Game.xaml
-    /// </summary>
     public partial class Game : Page
     {
         public Game()

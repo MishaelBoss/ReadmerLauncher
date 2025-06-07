@@ -22,8 +22,50 @@
                 </Grid>
                 <Border BorderThickness="15,10,15,15" Background="#4a4848" CornerRadius="15" Opacity="0.8"/>
                 <Grid Background="Transparent">
-                    <CheckBox Name="Autoload" Content="Авто загрузка" VerticalAlignment="Top" Width="250" Height="15" Foreground="White"  Opacity="1" Checked="AutoLoadingClick" HorizontalAlignment="Center" Margin="0,16,0,0"/>
-                    <CheckBox Name="Receive_notifications" Content="Получать уведомления" VerticalAlignment="Top" Width="250" Height="15" Foreground="White" Margin="0,42,0,0" Opacity="1" Checked="ReceiveNotificationsClick" HorizontalAlignment="Center"/>
+                    <CheckBox Name="Autoload" Content="Авто загрузка" VerticalAlignment="Top" Width="250" Height="15" Foreground="White"  Opacity="1" Checked="AutoLoadingClick" HorizontalAlignment="Center" Margin="0,16,0,0" Unchecked="AutoLoadingUnchecked"/>
+                    <CheckBox Name="Receive_notifications" Content="Получать уведомления" VerticalAlignment="Top" Width="250" Height="15" Foreground="White" Margin="0,42,0,0" Opacity="1" Checked="ReceiveNotificationsClick" HorizontalAlignment="Center" Unchecked="ReceiveNotificationsUnchecked"/>
+                    <Grid Margin="66,62,132,62">
+                        <Label Content="Скорость загрузки обновлений" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                        <ComboBox Name="ComboBoxChooseSpeedDownloadUpdate" VerticalAlignment="Center" HorizontalAlignment="Right" Width="120" ScrollViewer.PanningMode="Both" ScrollViewer.CanContentScroll="True" Stylus.IsFlicksEnabled="False" RenderTransformOrigin="0.5,0.5" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" SelectionChanged="ComboBoxChooseSpeedDownloadUpdateSelectionChanged" DropDownClosed="ComboBoxChooseSpeedDownloadUpdateDropDownClosed">
+                            <ComboBoxItem>
+                                <StackPanel>
+                                    <TextBox Name="TextBoxArgumentsSpeedDownloadUpdate" MaxHeight="100" MaxLength="6" PreviewTextInput="TextBoxArgumentsSpeedDownloadPreviewTextInput"/>
+                                    <TextBlock>128 Кбайт/с - 999999 Кбайт/с</TextBlock>
+                                </StackPanel>
+                            </ComboBoxItem>
+                            <ComboBoxItem Name="No_limit" Content="Без ограничения" IsSelected="False"></ComboBoxItem>
+                            <ComboBoxItem Name="One" Content="128 Кбайт/c" IsSelected="False"></ComboBoxItem>
+                            <ComboBoxItem Name="Two" Content="256 Кбайт/c" IsSelected="False"></ComboBoxItem>
+                            <ComboBoxItem Name="Three" Content="512 Кбайт/c" IsSelected="False"></ComboBoxItem>
+                            <ComboBoxItem Name="Four" Content="1 Мбайт/c" IsSelected="False"></ComboBoxItem>
+                            <ComboBoxItem Name="Five" Content="2 Мбайт/c" IsSelected="False"></ComboBoxItem>
+                            <ComboBoxItem Name="Six" Content="3 Мбайт/c" IsSelected="False"></ComboBoxItem>
+                            <ComboBoxItem Name="Seven" Content="5 Мбайт/c" IsSelected="False"></ComboBoxItem>
+                            <ComboBoxItem Name="Eight" Content="10 Мбайт/c" IsSelected="False"></ComboBoxItem>
+                            <ComboBoxItem Name="Nine" Content="25 Мбайт/c" IsSelected="False"></ComboBoxItem>
+                        </ComboBox>
+                    </Grid>
+                    <Grid Margin="66,93,132,31">
+                        <Label Content="Скорость загрузки игр" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                        <ComboBox Name="ComboBoxChooseSpeedDownloadGame" VerticalAlignment="Center" HorizontalAlignment="Right" Width="120" ScrollViewer.PanningMode="Both" ScrollViewer.CanContentScroll="True" Stylus.IsFlicksEnabled="False" RenderTransformOrigin="0.5,0.5" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" SelectionChanged="ComboBoxChooseSpeedDownloadGameSelectionChanged" DropDownClosed="ComboBoxChooseSpeedDownloadGameDropDownClosed">
+                            <ComboBoxItem>
+                                <StackPanel>
+                                    <TextBox Name="TextBoxArgumentsSpeedDownloadGame" MaxHeight="100" MaxLength="6" PreviewTextInput="TextBoxArgumentsSpeedDownloadGamePreviewTextInput"/>
+                                    <TextBlock>128 Кбайт/с - 999999 Кбайт/с</TextBlock>
+                                </StackPanel>
+                            </ComboBoxItem>
+                            <ComboBoxItem Name="No_limit_game" Content="Без ограничения" IsSelected="False"></ComboBoxItem>
+                            <ComboBoxItem Name="One_game" Content="128 Кбайт/c" IsSelected="False"></ComboBoxItem>
+                            <ComboBoxItem Name="Two_game" Content="256 Кбайт/c" IsSelected="False"></ComboBoxItem>
+                            <ComboBoxItem Name="Three_game" Content="512 Кбайт/c" IsSelected="False"></ComboBoxItem>
+                            <ComboBoxItem Name="Four_game" Content="1 Мбайт/c" IsSelected="False"></ComboBoxItem>
+                            <ComboBoxItem Name="Five_game" Content="2 Мбайт/c" IsSelected="False"></ComboBoxItem>
+                            <ComboBoxItem Name="Six_game" Content="3 Мбайт/c" IsSelected="False"></ComboBoxItem>
+                            <ComboBoxItem Name="Seven_game" Content="5 Мбайт/c" IsSelected="False"></ComboBoxItem>
+                            <ComboBoxItem Name="Eight_game" Content="10 Мбайт/c" IsSelected="False"></ComboBoxItem>
+                            <ComboBoxItem Name="Nine_game" Content="25 Мбайт/c" IsSelected="False"></ComboBoxItem>
+                        </ComboBox>
+                    </Grid>
                 </Grid>
             </Grid>
         </Grid>
@@ -48,7 +90,7 @@
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0">
                         <Label HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" FontSize="22" Content="Настройка обновлений" Margin="0,10,0,0"/>
-                        <CheckBox Name="CheckBox" Content="Обновлять при наличие обновлений" VerticalAlignment="Top" Width="250" Height="15" Foreground="White" Margin="0,55,0,0" Opacity="1" Checked="CheckBoxChecked" HorizontalAlignment="Center"/>
+                        <CheckBox Name="CheckBox" Content="Обновлять при наличие обновлений" VerticalAlignment="Top" Width="250" Height="15" Foreground="White" Margin="0,55,0,0" Opacity="1" Checked="CheckBoxChecked" HorizontalAlignment="Center" Unchecked="CheckBoxUnchecked"/>
                     </Grid>
                     <Grid Grid.Row="1">
                         <Button Name="ButtonCheckUpdate" Style="{StaticResource ButtonSettings}" Click="ButtonCheckUpdateClick" Content="Проверить на обновление" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="1" Visibility="Visible" Grid.ColumnSpan="2" Margin="150,0,0,0"/>

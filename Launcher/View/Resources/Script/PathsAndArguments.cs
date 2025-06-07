@@ -1,5 +1,4 @@
-﻿using Launcher.View.Windows;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 
@@ -8,6 +7,7 @@ namespace LauncherLes1.View.Resources.Script
     class Arguments
     {
         public static readonly string urlJSONUpdateLauncher = "https://raw.githubusercontent.com/RedmerGameAndTechnologies/JsonLauncher/refs/heads/main/VersionLauncher.json";
+        public static readonly string nameXml = "appsettings.xml";
 
         #region Confirm Update
         public static string execPath = Process.GetCurrentProcess().MainModule.FileName;
@@ -23,6 +23,8 @@ namespace LauncherLes1.View.Resources.Script
         public static bool Update_if_is_update { get; set; }
         public static bool Autoload { get; set; }
         public static bool Receive_notifications { get; set; }
+        public static int Speed_download_update { get; set; }
+        public static int Speed_download_game { get; set; }
 
 
         public static string newVersion { get; set; }

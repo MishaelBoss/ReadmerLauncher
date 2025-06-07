@@ -47,6 +47,8 @@ namespace Launcher
                 }
             }
             else if (GridMainFrame.Children.Contains(userControlWarning)) GridMainFrame.Children.Remove(userControlWarning);
+
+            Autoload.SetAutoload();
         }
 
         private void TopBorder_MouseDown(object sender, MouseButtonEventArgs e)

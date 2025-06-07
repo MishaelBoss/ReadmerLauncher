@@ -25,6 +25,8 @@ namespace Launcher.View.Windows
                 Icon.Source = image;
                 Icon.Visibility = Visibility.Visible;
             }
+            if (onClick != null) LinkText.Visibility = Visibility.Visible;
+            else LinkText.Visibility = Visibility.Hidden;
             ClickAction = onClick;
         }
 

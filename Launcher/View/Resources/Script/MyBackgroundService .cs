@@ -2,6 +2,7 @@
 using LauncherLes1.View.Resources.Script;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -64,15 +65,26 @@ namespace Launcher.View.Resources.Script
                                     message: $"Новая версия {Arguments.readver}\nТекущая версия {Arguments.curverVersion}",
                                     onClick: () =>
                                     {
-                                        Application.Current.MainWindow?.Show();
-                                        Application.Current.MainWindow?.Activate();
+                                        if (Arguments.aboutVersionLink != null || Arguments.aboutVersionLink != string.Empty) {
+                                            try
+                                            {
+                                                Process.Start(new ProcessStartInfo(Arguments.aboutVersionLink)
+                                                {
+                                                    UseShellExecute = true
+                                                });
+                                            }
+                                            catch (Exception ex)
+                                            {
+                                                Loges.LoggingProcess(LogLevel.ERROR, ex: ex);
+                                            }
+                                        }
                                     });
 
                                 notification.ShowNotification(GetNotificationPosition());
                             }
                             catch (Exception ex)
                             {
-                                Loges.LoggingProcess(LogLevel.ERROR, ex.Message, Loges.GetPageInfo(ex));
+                                Loges.LoggingProcess(LogLevel.ERROR, ex: ex);
                                 _logger.LogError(ex, "Ошибка при показе уведомления");
                             }
                         }, DispatcherPriority.Normal, token);
@@ -87,15 +99,31 @@ namespace Launcher.View.Resources.Script
                                     message: $"Новая версия {Arguments.readver}\nТекущая версия {Arguments.curverVersion}",
                                     onClick: () =>
                                     {
-                                        Application.Current.MainWindow?.Show();
-                                        Application.Current.MainWindow?.Activate();
+                                        if (Arguments.aboutVersionLink != null || Arguments.aboutVersionLink != string.Empty)
+                                        {
+                                            try
+                                            {
+                                                Process.Start(new ProcessStartInfo(Arguments.aboutVersionLink)
+                                                {
+                                                    UseShellExecute = true
+                                                });
+                                            }
+                                            catch (Exception ex)
+                                            {
+                                                Loges.LoggingProcess(LogLevel.ERROR, ex: ex);
+                                            }
+                                        }
+                                        else {
+                                            Application.Current.MainWindow?.Show();
+                                            Application.Current.MainWindow?.Activate();
+                                        }
                                     });
 
                                 notification.ShowNotification(GetNotificationPosition());
                             }
                             catch (Exception ex)
                             {
-                                Loges.LoggingProcess(LogLevel.ERROR, ex.Message, Loges.GetPageInfo(ex));
+                                Loges.LoggingProcess(LogLevel.ERROR, ex:ex);
                                 _logger.LogError(ex, "Ошибка при показе уведомления");
                             }
                         }, DispatcherPriority.Normal, token);

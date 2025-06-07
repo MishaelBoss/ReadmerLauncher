@@ -22,7 +22,7 @@
             <Grid Grid.Row="0" PreviewMouseLeftButtonDown="WindowMove">
                 <Label Name="LabelContentDownload" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Content="Идет загрузка..."/>
             </Grid>
-            <Button Style="{DynamicResource ButtonCancelDownloadUpdate}" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Black" Content="Отмена" Click="Click"/>
+            <Button Style="{DynamicResource ButtonCancelDownloadUpdate}" Name="Button" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Black" Content="Отмена" Click="Click" Visibility="Hidden"/>
         </Grid>
     </Border>
 </Window>

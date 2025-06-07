@@ -10,8 +10,8 @@
     <ApplicationManifest>E:\Перенос\LauncherLes1\LauncherLes1\app.manifest</ApplicationManifest>
     <PackageIcon></PackageIcon>
     <ApplicationIcon>View\Resources\Image\Logo\LogoProject.ico</ApplicationIcon>
-    <FileVersion>1.0.0.7</FileVersion>
-    <AssemblyVersion>1.0.0.7</AssemblyVersion>
+    <FileVersion>1.0.1.0</FileVersion>
+    <AssemblyVersion>1.0.1.0</AssemblyVersion>
     <PackageReleaseNotes></PackageReleaseNotes>
     <RepositoryUrl>https://github.com/MishaelBoss/ReadmerLauncher</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
@@ -23,7 +23,7 @@
     <None Remove="View\Resources\Image\CollapseProject.png" />
     <None Remove="View\Resources\Image\collapseproject_white.png" />
     <None Remove="View\Resources\Image\Defender Rat.png" />
-    <None Remove="View\Resources\Image\Download.png" />
+    <None Remove="View\Resources\Image\DefenderRat_background.png" />
     <None Remove="View\Resources\Image\Infomation.png" />
     <None Remove="View\Resources\Image\Logo.png" />
     <None Remove="View\Resources\Image\Sad_smiley.jpg" />
@@ -39,12 +39,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="CommonServiceLocator" Version="2.0.7" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.5" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.5" />
     <PackageReference Include="MvvmCross" Version="9.3.1" />
-    <PackageReference Include="MvvmLightLibs" Version="5.4.1.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Newtonsoft.Json.Bson" Version="1.0.3" />
+    <PackageReference Include="System.Text.Json" Version="9.0.5" />
   </ItemGroup>
 
   <ItemGroup>
@@ -63,7 +66,7 @@
     <Resource Include="View\Resources\Image\Defender Rat.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="View\Resources\Image\Download.png">
+    <Resource Include="View\Resources\Image\DefenderRat_background.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="View\Resources\Image\Infomation.png">

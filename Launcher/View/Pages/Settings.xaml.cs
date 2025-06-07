@@ -1,12 +1,9 @@
 ﻿using CheckConnectInternet;
-using Launcher.Model;
 using Launcher.View.Resources.Script;
 using Launcher.View.Windows;
 using LauncherLes1.View.Resources.Script;
-using Newtonsoft.Json;
 using System.Diagnostics;
 using System.IO;
-using System.Net.Http;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -22,26 +19,22 @@ namespace Launcher.View.Pages
             InitializeComponent();
             InitializeSettings();
             InitializeVersionInfo();
+            Update.UpdateUI(BackgroundUIFunction: BackgroundUIFunction, hours: 0, minutes: 0, seconds: 5);
+        }
+
+        private void BackgroundUIFunction(object sender, EventArgs ea)
+        {
+            if (Internet.connect()) _ = CheckForUpdatesAsync();
+            else Loges.LoggingProcess(LogLevel.INFO, "Подключитесь к интернету");
         }
 
         private void InitializeSettings()
         {
             try
             {
-                if (!Directory.Exists(Paths.config))
-                {
-                    Directory.CreateDirectory(Paths.config);
-                }
-
                 var configPath = Path.Combine(Paths.config, ConfigFileName);
-                if (!File.Exists(configPath))
-                {
-                    XmlConfigCreate.Create();
-                }
-                else
-                {
-                    XmlConfigReader.Load();
-                }
+                if (!File.Exists(configPath)) XmlConfigCreate.Create();
+                else XmlConfigReader.Load();
 
                 CheckBox.IsChecked = Arguments.Update_if_is_update;
                 Autoload.IsChecked = Arguments.Autoload;
@@ -49,6 +42,7 @@ namespace Launcher.View.Pages
             }
             catch (Exception ex)
             {
+                Loges.LoggingProcess(LogLevel.WARN, ex: ex);
                 MessageBox.Show($"Ошибка инициализации настроек: {ex.Message}", "Ошибка",
                                 MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -59,6 +53,7 @@ namespace Launcher.View.Pages
             currentVersion.Content = $"Моя версия: {Arguments.curverVersion}";
 
             if (Internet.connect()) _ = CheckForUpdatesAsync();
+            else Loges.LoggingProcess(LogLevel.INFO, "Подключитесь к интернету");
 
         }
 
@@ -70,7 +65,7 @@ namespace Launcher.View.Pages
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Ошибка при проверке обновлений: {ex.Message}");
+                Loges.LoggingProcess(LogLevel.ERROR, ex:ex);
                 Dispatcher.Invoke(() =>
                     MessageBox.Show("Не удалось проверить обновления", "Ошибка",
                                  MessageBoxButton.OK, MessageBoxImage.Warning));
@@ -79,33 +74,25 @@ namespace Launcher.View.Pages
 
         private async Task CheckUpdateJson()
         {
-            using var client = new HttpClient();
-            var json = await client.GetStringAsync(Arguments.urlJSONUpdateLauncher);
-            var data = JsonConvert.DeserializeObject<UpdateLauncher>(json);
+            await CheckUpdate.CheckUpdateJson();
 
-            Arguments.fileDownloadLink = data.fileDownloadLink;
-            Arguments.newVersion = data.version;
-            Arguments.aboutVersionLink = data.aboutVersionLink;
-            Arguments.readver = data.version;
-            Arguments.isEmergencyUpdate = data.isEmergencyUpdate;
-
-            Dispatcher.Invoke(() => UpdateUI(data));
+            Dispatcher.Invoke(() => UpdateUI());
         }
 
-        private void UpdateUI(UpdateLauncher updateData)
+        private void UpdateUI()
         {
             var hasUpdate = Arguments.curverVersion.CompareTo(Arguments.readver) < 0;
 
             ButtonDownloadUpdate.Visibility = hasUpdate ? Visibility.Visible : Visibility.Hidden;
             ButtonCheckUpdate.Visibility = hasUpdate ? Visibility.Hidden : Visibility.Visible;
             ButtonInformationNewVersion.Visibility =
-                !string.IsNullOrEmpty(updateData.aboutVersionLink) ? Visibility.Visible : Visibility.Hidden;
+                !string.IsNullOrEmpty(Arguments.aboutVersionLink) ? Visibility.Visible : Visibility.Hidden;
 
             currentVersion.Content = hasUpdate
                 ? $"Моя версия: {Arguments.curverVersion}\nНовая версия: {Arguments.readver}"
                 : $"Моя версия: {Arguments.curverVersion}";
 
-            if (updateData.isEmergencyUpdate && _updateLauncherWindow == null)
+            if (Arguments.isEmergencyUpdate && _updateLauncherWindow == null)
             {
                 ShowUpdateWindow();
             }
@@ -120,23 +107,39 @@ namespace Launcher.View.Pages
 
         private void CheckBoxChecked(object sender, RoutedEventArgs e)
         {
-            var isChecked = CheckBox.IsChecked ?? false;
-            XmlConfigSave.Change(0, "update_if_is_update", isChecked);
-            Arguments.Update_if_is_update = isChecked;
+            XmlConfigSave.Change("update_if_is_update", true);
+            Arguments.Update_if_is_update = true;
+        }
+
+
+        private void CheckBoxUnchecked(object sender, RoutedEventArgs e)
+        {
+            XmlConfigSave.Change("update_if_is_update", false);
+            Arguments.Update_if_is_update = false;
         }
 
         private void AutoLoadingClick(object sender, RoutedEventArgs e)
         {
-            var isChecked = Autoload.IsChecked ?? false;
-            XmlConfigSave.Change(2, "autoload", isChecked);
-            Arguments.Autoload = isChecked;
+            XmlConfigSave.Change("autoload", true);
+            Arguments.Autoload = true;
+        }
+
+        private void AutoLoadingUnchecked(object sender, RoutedEventArgs e)
+        {
+            XmlConfigSave.Change("autoload", false);
+            Arguments.Autoload = false;
         }
 
         private void ReceiveNotificationsClick(object sender, RoutedEventArgs e)
         {
-            var isChecked = Receive_notifications.IsChecked ?? false;
-            XmlConfigSave.Change(1, "receive_notifications", isChecked);
-            Arguments.Receive_notifications = isChecked;
+            XmlConfigSave.Change("receive_notifications", true);
+            Arguments.Receive_notifications = true;
+        }
+
+        private void ReceiveNotificationsUnchecked(object sender, RoutedEventArgs e)
+        {
+            XmlConfigSave.Change("receive_notifications", false);
+            Arguments.Receive_notifications = false;
         }
 
         private void ButtonDownloadUpdateClick(object sender, RoutedEventArgs e)
@@ -167,6 +170,121 @@ namespace Launcher.View.Pages
             catch (Exception ex)
             {
                 MessageBox.Show($"Ошибка при открытии: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void TextBoxArgumentsSpeedDownloadPreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+/*            if (!Char.IsDigit(e.Text, 0)) e.Handled = true;
+            XmlConfigSave.Change("speed/update", e.Text);*/
+        }
+
+        private void TextBoxArgumentsSpeedDownloadGamePreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+/*            if (!Char.IsDigit(e.Text, 0)) e.Handled = true;
+            XmlConfigSave.Change("speed/game", e.Text);*/
+        }
+
+        private bool ComboBoxChooseSpeedDownloadUpdateHandle = true;
+        private bool ComboBoxChooseSpeedDownloadGameHandle = true;
+
+        private void ComboBoxChooseSpeedDownloadUpdateSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ComboBoxChooseSpeedDownloadUpdateHandle)ComboBoxChooseSpeedDownloadUpdate_Handle();
+            ComboBoxChooseSpeedDownloadUpdateHandle = true;
+        }
+
+        private void ComboBoxChooseSpeedDownloadUpdateDropDownClosed(object sender, EventArgs e)
+        {
+            ComboBox ComboBoxChooseGameInLauncher = sender as ComboBox;
+            ComboBoxChooseSpeedDownloadUpdateHandle = !ComboBoxChooseGameInLauncher.IsDropDownOpen;
+            ComboBoxChooseSpeedDownloadUpdate_Handle();
+        }
+
+        private void ComboBoxChooseSpeedDownloadUpdate_Handle()
+        {
+            switch (ComboBoxChooseSpeedDownloadUpdate.SelectedIndex)
+            {
+                case 1:
+                    XmlConfigSave.Change("speed/update", 999999);
+                    break;
+                case 2:
+                    XmlConfigSave.Change("speed/update", 128000);
+                    break;
+                case 3:
+                    XmlConfigSave.Change("speed/update", 256000);
+                    break;
+                case 4:
+                    XmlConfigSave.Change("speed/update", 512000);
+                    break;
+                case 5:
+                    XmlConfigSave.Change("speed/update", 1000000);
+                    break;
+                case 6:
+                    XmlConfigSave.Change("speed/update", 2000000);
+                    break;
+                case 7:
+                    XmlConfigSave.Change("speed/update", 3000000);
+                    break;
+                case 8:
+                    XmlConfigSave.Change("speed/update", 5000000);
+                    break;
+                case 9:
+                    XmlConfigSave.Change("speed/update", 10000000);
+                    break;
+                case 10:
+                    XmlConfigSave.Change("speed/update", 25000000);
+                    break;
+            }
+        }
+
+        private void ComboBoxChooseSpeedDownloadGameSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ComboBoxChooseSpeedDownloadGameHandle) ComboBoxChooseSpeedDownloadGame_Handle();
+            ComboBoxChooseSpeedDownloadGameHandle = true;
+        }
+
+        private void ComboBoxChooseSpeedDownloadGameDropDownClosed(object sender, EventArgs e)
+        {
+            ComboBox ComboBoxChooseSpeedDownloadGame = sender as ComboBox;
+            ComboBoxChooseSpeedDownloadGameHandle = !ComboBoxChooseSpeedDownloadGame.IsDropDownOpen;
+            ComboBoxChooseSpeedDownloadGame_Handle();
+        }
+
+        private void ComboBoxChooseSpeedDownloadGame_Handle()
+        {
+            switch (ComboBoxChooseSpeedDownloadGame.SelectedIndex)
+            {
+                case 1:
+                    XmlConfigSave.Change("speed/game", 999999);
+                    break;
+                case 2:
+                    XmlConfigSave.Change("speed/game", 128000);
+                    break;
+                case 3:
+                    XmlConfigSave.Change("speed/game", 256000);
+                    break;
+                case 4:
+                    XmlConfigSave.Change("speed/game", 512000);
+                    break;
+                case 5:
+                    XmlConfigSave.Change("speed/game", 1000000);
+                    break;
+                case 6:
+                    XmlConfigSave.Change("speed/game", 2000000);
+                    break;
+                case 7:
+                    XmlConfigSave.Change("speed/game", 3000000);
+                    break;
+                case 8:
+                    XmlConfigSave.Change("speed/game", 5000000);
+                    break;
+                case 9:
+                    XmlConfigSave.Change("speed/game", 10000000);
+                    break;
+                case 10:
+                    XmlConfigSave.Change("speed/game", 25000000);
+                    break;
             }
         }
     }

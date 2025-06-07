@@ -11,31 +11,37 @@ namespace Launcher.View.Resources.Script
             {
                 try
                 {
-                    string versionFilePath = Path.Combine(Paths.config, "appsettings.xml");
+                    string versionFilePath = Path.Combine(Paths.config, Arguments.nameXml);
                     XDocument xdoc = XDocument.Load(versionFilePath);
 
-                    bool isUpdate = bool.TryParse(xdoc.Element("protocol")?.Element("update_if_is_update")?.Value, out var result) && result;
-                    bool isAutoload = bool.TryParse(xdoc.Element("protocol")?.Element("autoload")?.Value, out var result2) && result2;
-                    bool isNotifications = bool.TryParse(xdoc.Element("protocol")?.Element("receive_notifications")?.Value, out var result3) && result3;
-
-                    Arguments.Update_if_is_update = isUpdate;
-                    Arguments.Autoload = isAutoload;
-                    Arguments.Receive_notifications = isNotifications;
-
-/*
                     XElement? protocol = xdoc.Element("protocol");
                     if (protocol != null)
                     {
-                        XElement? update_if_is_update = protocol.Element("update_if_is_update");
-                        if (update_if_is_update != null) Arguments.CheckBox_update_if_is_update = ((bool)update_if_is_update);
-                    }*/
+                        XElement? isUpdate = protocol.Element("update_if_is_update");
+                        XElement? isAutoload = protocol.Element("autoload");
+                        XElement? isNotifications = protocol.Element("receive_notifications");
+
+                        Arguments.Update_if_is_update = (bool)isUpdate;
+                        Arguments.Autoload = (bool)isAutoload;
+                        Arguments.Receive_notifications = (bool)isNotifications;
+
+                        XElement? speed = xdoc.Element("speed");
+                        if (speed != null)
+                        {
+                            XElement? SpeedDownloadUpdate = protocol.Element("update");
+                            XElement? SpeedDownloadGame = protocol.Element("game");
+
+                            if (SpeedDownloadUpdate != null) Arguments.Speed_download_update = (int)SpeedDownloadUpdate;
+                            if (SpeedDownloadGame != null) Arguments.Speed_download_game = (int)SpeedDownloadGame;
+                        }
+                    }
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    //Loges.LoggingProcess("EXCEPTION E: " + e.Message);
+                    Loges.LoggingProcess(LogLevel.ERROR, ex: ex);
                 }
             }
-            //else Loges.LoggingProcess("Директория не найдена: " + Paths.config);
+            else Loges.LoggingProcess(LogLevel.ERROR, "Директория не найдена: " + Paths.config);
         }
     }
 }

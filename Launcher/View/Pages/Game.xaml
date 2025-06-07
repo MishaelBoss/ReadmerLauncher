@@ -5,10 +5,63 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Launcher.View.Pages"
       mc:Ignorable="d" 
+      d:Background="#354D73"
       d:DesignHeight="600" d:DesignWidth="1000"
       Title="Game">
 
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="350"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0"  Background="Gray" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Image Source="/View/Resources/Image/DefenderRat_background.png" Stretch="UniformToFill" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Border>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Content="Запустить"/>
+                <Grid Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0" Width="150">
+                        <Grid Grid.Column="1" HorizontalAlignment="Right">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Foreground="White" FontWeight="Bold" Content="Последний запуск"/>
+                            <Label Grid.Row="1" Foreground="White" FontWeight="Light" Content="22 мая"/>
+                        </Grid>
+                    </Grid>
+                    <Grid Grid.Column="1" Width="200">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0" Source="/View/Resources/Image/Clock.png"/>
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Foreground="White" FontWeight="Bold" Content="Вы играли"/>
+                            <Label Grid.Row="1" Foreground="White" FontWeight="Light" Content="50 ч."/>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
     </Grid>
 </Page>

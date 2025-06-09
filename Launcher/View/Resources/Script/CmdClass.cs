@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace LauncherLes1.View.Resources.Script
+namespace Launcher.View.Resources.Script
 {
     class CmdClass
     {

@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Launcher.View.Pages"
+      xmlns:controls="clr-namespace:Launcher.View.Components"
       mc:Ignorable="d" 
       d:Background="#354D73"
       d:DesignHeight="600" d:DesignWidth="1000"
@@ -28,7 +29,7 @@
                     <ColumnDefinition Width="150"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Content="Запустить"/>
+                <Button Grid.Column="0" Name="btn" Style="{DynamicResource ButtonLaunch}" Content="Запустить" Click="OnButtonClick"/>
                 <Grid Grid.Column="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="150"/>

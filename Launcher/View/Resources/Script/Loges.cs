@@ -1,5 +1,4 @@
-﻿using LauncherLes1.View.Resources.Script;
-using System.IO;
+﻿using System.IO;
 
 namespace Launcher.View.Resources.Script
 {

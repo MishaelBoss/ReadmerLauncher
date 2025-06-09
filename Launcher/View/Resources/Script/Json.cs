@@ -1,5 +1,4 @@
 ﻿using Launcher.Model;
-using LauncherLes1.View.Resources.Script;
 using Newtonsoft.Json;
 using System.Net.Http;
 

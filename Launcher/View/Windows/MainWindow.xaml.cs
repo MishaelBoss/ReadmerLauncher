@@ -6,7 +6,7 @@ using Microsoft.Extensions.Hosting;
 using System.Windows;
 using System.Windows.Input;
 
-namespace Launcher
+namespace Launcher.View.Windows
 {
     public partial class MainWindow : Window
     {
@@ -57,10 +57,10 @@ namespace Launcher
                 DragMove();
         }
 
-        protected override async void OnClosed(EventArgs e)
+/*        protected override async void OnClosed(EventArgs e)
         {
-            /*            await _host.StopAsync();
-                        base.OnClosed(e);*/
-        }
+            await _host.StopAsync();
+            base.OnClosed(e);
+        }*/
     }
 }

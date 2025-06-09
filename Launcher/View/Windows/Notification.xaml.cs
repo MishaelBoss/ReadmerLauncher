@@ -38,7 +38,6 @@ namespace Launcher.View.Windows
                 Close();
             };
 
-            // Автоматическое закрытие уведомления через 5 секунд
             var timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(5) };
             timer.Tick += (s, args) =>
             {

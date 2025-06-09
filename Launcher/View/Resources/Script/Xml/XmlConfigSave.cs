@@ -1,5 +1,4 @@
-﻿using LauncherLes1.View.Resources.Script;
-using System.IO;
+﻿using System.IO;
 using System.Xml.Linq;
 
 namespace Launcher.View.Resources.Script
@@ -8,7 +7,7 @@ namespace Launcher.View.Resources.Script
     {
         public static void Change(string elementString, params object[] elementParameters)
         {
-            string ConfigFilePath = Path.Combine(Paths.config, Arguments.nameXml);
+            string ConfigFilePath = Path.Combine(Paths.config, Files.configSettingsFileName);
 
             if (File.Exists(ConfigFilePath))
             {
@@ -24,7 +23,7 @@ namespace Launcher.View.Resources.Script
         {
             try
             {
-                string ConfigFilePath = Path.Combine(Paths.config, Arguments.nameXml);
+                string ConfigFilePath = Path.Combine(Paths.config, Files.configSettingsFileName);
 
                 var xdoc = File.Exists(ConfigFilePath)
                     ? XDocument.Load(ConfigFilePath)

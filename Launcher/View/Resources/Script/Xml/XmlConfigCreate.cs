@@ -1,5 +1,4 @@
-﻿using LauncherLes1.View.Resources.Script;
-using System.IO;
+﻿using System.IO;
 using System.Xml.Linq;
 
 namespace Launcher.View.Resources.Script
@@ -28,7 +27,7 @@ namespace Launcher.View.Resources.Script
                     new XElement("update", $"{999999}", new XAttribute("id", trackId++)),
                         new XElement("game", $"{999999}", new XAttribute("id", trackId++)))));
 
-            string realPath = Path.Combine(Paths.config, Arguments.nameXml);
+            string realPath = Path.Combine(Paths.config, Files.configSettingsFileName);
             xdoc.Save(realPath);
         }
     }

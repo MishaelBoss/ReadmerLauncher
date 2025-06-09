@@ -1,5 +1,4 @@
 ﻿using Launcher.View.Windows;
-using LauncherLes1.View.Resources.Script;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
@@ -11,7 +10,7 @@ namespace Launcher.View.Resources.Script
     public class MyBackgroundService : BackgroundService
     {
         private readonly ILogger<MyBackgroundService> _logger;
-        private DownloadUpdateLauncherWindow _launcherWindow;
+        private DownloadUpdateLauncherWindow _launcherWindow { get; set; }
 
         public MyBackgroundService(ILogger<MyBackgroundService> logger)
         {

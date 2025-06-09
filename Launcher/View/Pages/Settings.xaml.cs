@@ -1,7 +1,6 @@
 ﻿using CheckConnectInternet;
 using Launcher.View.Resources.Script;
 using Launcher.View.Windows;
-using LauncherLes1.View.Resources.Script;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
@@ -12,7 +11,6 @@ namespace Launcher.View.Pages
     public partial class Settings : Page
     {
         private DownloadUpdateLauncherWindow _updateLauncherWindow;
-        private const string ConfigFileName = "appsettings.xml";
 
         public Settings()
         {
@@ -32,7 +30,7 @@ namespace Launcher.View.Pages
         {
             try
             {
-                var configPath = Path.Combine(Paths.config, ConfigFileName);
+                var configPath = Path.Combine(Paths.config, Files.configSettingsFileName);
                 if (!File.Exists(configPath)) XmlConfigCreate.Create();
                 else XmlConfigReader.Load();
 
@@ -43,8 +41,7 @@ namespace Launcher.View.Pages
             catch (Exception ex)
             {
                 Loges.LoggingProcess(LogLevel.WARN, ex: ex);
-                MessageBox.Show($"Ошибка инициализации настроек: {ex.Message}", "Ошибка",
-                                MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Ошибка инициализации настроек: {ex.Message}", "Ошибка",MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -66,9 +63,7 @@ namespace Launcher.View.Pages
             catch (Exception ex)
             {
                 Loges.LoggingProcess(LogLevel.ERROR, ex:ex);
-                Dispatcher.Invoke(() =>
-                    MessageBox.Show("Не удалось проверить обновления", "Ошибка",
-                                 MessageBoxButton.OK, MessageBoxImage.Warning));
+                Dispatcher.Invoke(() => MessageBox.Show("Не удалось проверить обновления", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning));
             }
         }
 
@@ -85,8 +80,7 @@ namespace Launcher.View.Pages
 
             ButtonDownloadUpdate.Visibility = hasUpdate ? Visibility.Visible : Visibility.Hidden;
             ButtonCheckUpdate.Visibility = hasUpdate ? Visibility.Hidden : Visibility.Visible;
-            ButtonInformationNewVersion.Visibility =
-                !string.IsNullOrEmpty(Arguments.aboutVersionLink) ? Visibility.Visible : Visibility.Hidden;
+            ButtonInformationNewVersion.Visibility = !string.IsNullOrEmpty(Arguments.aboutVersionLink) ? Visibility.Visible : Visibility.Hidden;
 
             currentVersion.Content = hasUpdate
                 ? $"Моя версия: {Arguments.curverVersion}\nНовая версия: {Arguments.readver}"

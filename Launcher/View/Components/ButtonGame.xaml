@@ -13,7 +13,7 @@
                 <ColumnDefinition Width="40"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Image Grid.Column="0" Width="30" Height="30" Name="Img" Source="/View/Resources/Image/Defender Rat.png" Stretch="UniformToFill"/>
+            <Image Grid.Column="0" Name="Icon" Width="30" Height="30" Source="/View/Resources/Image/Defender Rat.png" Stretch="UniformToFill"/>
             <Label Grid.Column="1" Name="Name" Content="Defender Rat" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" Foreground="White" FontSize="15"/>
         </Grid>
     </Button>

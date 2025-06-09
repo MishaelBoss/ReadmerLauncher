@@ -2,12 +2,16 @@
 using System.IO;
 using System.Reflection;
 
-namespace LauncherLes1.View.Resources.Script
+namespace Launcher.View.Resources.Script
 {
+    class Files {
+        public const string configSettingsFileName = "appsettings.xml";
+        public static readonly string LibraryfoldersJson = "libraryfolders.json";
+    }
+
     class Arguments
     {
         public static readonly string urlJSONUpdateLauncher = "https://raw.githubusercontent.com/RedmerGameAndTechnologies/JsonLauncher/refs/heads/main/VersionLauncher.json";
-        public static readonly string nameXml = "appsettings.xml";
 
         #region Confirm Update
         public static string execPath = Process.GetCurrentProcess().MainModule.FileName;
@@ -70,6 +74,8 @@ namespace LauncherLes1.View.Resources.Script
         public static readonly string saved = @$".\Saved";
         public static readonly string crashes = @$".\{saved}\crashes";
         public static readonly string log = @$".\{saved}\log";
+        public static readonly string readmer = @".\readmer";
+        public static readonly string games = @$".\{readmer}\games";
         #endregion
     }
 }

@@ -1,6 +1,5 @@
 ﻿using CheckConnectInternet;
 using Launcher.View.Resources.Script;
-using LauncherLes1.View.Resources.Script;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;

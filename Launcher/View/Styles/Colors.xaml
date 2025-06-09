@@ -11,4 +11,6 @@
     <SolidColorBrush x:Key="ContentColorButton_02_Rich_dark_green" Color="#18783e"/>
     <SolidColorBrush x:Key="ContentColorButton_02_Cyan_green" Color="#014d1f"/>
     <SolidColorBrush x:Key="ContentColorButton_02_Dark_cyan" Color="#13a84e"/>
+
+    <SolidColorBrush x:Key="ButtonCatrViewGame" Color="#2A58A1"/>
 </ResourceDictionary>

@@ -1,5 +1,4 @@
-﻿using LauncherLes1.View.Resources.Script;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 
 namespace Launcher.View.Resources.Script
 {

@@ -1,5 +1,4 @@
-﻿using LauncherLes1.View.Resources.Script;
-using System.IO;
+﻿using System.IO;
 using System.Xml.Linq;
 
 namespace Launcher.View.Resources.Script
@@ -11,7 +10,7 @@ namespace Launcher.View.Resources.Script
             {
                 try
                 {
-                    string versionFilePath = Path.Combine(Paths.config, Arguments.nameXml);
+                    string versionFilePath = Path.Combine(Paths.config, Files.configSettingsFileName);
                     XDocument xdoc = XDocument.Load(versionFilePath);
 
                     XElement? protocol = xdoc.Element("protocol");

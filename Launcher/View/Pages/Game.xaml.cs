@@ -1,12 +1,10 @@
-﻿using CheckConnectInternet;
-using GroupDocs.Conversion;
-using Launcher.View.Components;
+﻿using Launcher.View.Components;
 using Launcher.View.Resources.Script;
+using Launcher.View.Resources.Script.Game;
 using Launcher.View.Resources.Script.Json;
 using Newtonsoft.Json.Linq;
 using System.Diagnostics;
 using System.IO;
-using System.Net;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -51,53 +49,45 @@ namespace Launcher.View.Pages
             Initialize();
         }
 
-        private async Task DownloadIcon()
+        /*public void DownloadContent(string destinationPath, string convertPath)
         {
             try
             {
-                await Task.Run(async () =>
+                if (Internet.connect())
                 {
-                    if (Internet.connect())
+                    using (var client = new HttpClient())
                     {
-                        string destinationPath = Path.Combine(Paths.games, $"{_name}.png");
-                        string convertPath = Path.Combine(Paths.games, $"{_name}.ico");
-                        if (!File.Exists(destinationPath) && !File.Exists(convertPath)) {
-                            using (WebClient wc = new WebClient())
+                        try
+                        {
+                            using (var s = client.GetStreamAsync(_icon))
                             {
-                                try
+                                using (var fs = new FileStream(destinationPath, FileMode.OpenOrCreate))
                                 {
-                                    Uri uri = new Uri(_icon);
-                                    await wc.DownloadFileTaskAsync(uri, destinationPath);
-                                    if(!File.Exists(convertPath))
-                                        FluentConverter.Load(destinationPath).ConvertTo(convertPath).Convert();
+                                    s.Result.CopyTo(fs);
+                                }
 
-                                }
-                                catch (OperationCanceledException ex)
-                                {
-                                    Loges.LoggingProcess(LogLevel.INFO, ex: ex);
-                                    MessageBox.Show("Загрузка была отменена.", "Отмена", MessageBoxButton.OK, MessageBoxImage.Information);
-                                }
-                                catch (Exception ex)
-                                {
-                                    Loges.LoggingProcess(LogLevel.ERROR, ex: ex);
-                                    MessageBox.Show($"Ошибка при загрузке файла: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                                }
+                                if (!File.Exists(convertPath))
+                                    FluentConverter.Load(destinationPath).ConvertTo(convertPath).Convert();
+
+                                if (File.Exists(destinationPath)) File.Delete(destinationPath);
                             }
                         }
+                        catch (Exception ex)
+                        {
+                            Loges.LoggingProcess(LogLevel.ERROR, ex: ex);
+                            MessageBox.Show($"Ошибка при загрузке контента: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
                     }
-                    else
-                    {
-                        Loges.LoggingProcess(LogLevel.INFO, "Подключитесь к интернету");
-                        MessageBox.Show("Ошибка", "Подключитесь к интернету", MessageBoxButton.OK, MessageBoxImage.Information);
-                    }
-                });
+                }
+                else {
+                    Loges.LoggingProcess(LogLevel.INFO, "Подключитесь к интернету");
+                    MessageBox.Show("Вовремя работы отключился интернет", "Подключитесь к интернету", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 Loges.LoggingProcess(LogLevel.INFO, ex: ex);
-                MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-        }
+        }*/
 
         private void Initialize() {
             CheckInstallation();
@@ -127,7 +117,10 @@ namespace Launcher.View.Pages
             _version = "1.0.0.0";
             _icon = "https://raw.githubusercontent.com/RedmerGameAndTechnologies/JsonLauncher/refs/heads/main/icons/DefenderRat/DefenderRat_icon.png";
 
-            DownloadIcon();
+/*            string destinationPath = Path.Combine(Paths.games, $"{_name}.png");
+            string convertPath = Path.Combine(Paths.games, $"{_name}.ico");*/
+
+            if (!File.Exists(Paths.convertPath(_name))) DownloadContent.Download(Paths.destinationPath(_name), Paths.convertPath(_name), _icon);
         }
 
         private void BackgroundUIFunction(object sender, EventArgs ea)
@@ -135,14 +128,15 @@ namespace Launcher.View.Pages
 
         }
 
-        CancellationTokenSource cancelTokenSource;
+        /*CancellationTokenSource cancelTokenSource;
         private void DownloadGame() {
-            /*try
+            try
             {
                 if (cancelTokenSource == null || cancelTokenSource.IsCancellationRequested) cancelTokenSource = new CancellationTokenSource();
                 CancellationToken token = cancelTokenSource.Token;
 
-                Task.Run(async () => {
+                Task.Run(async () =>
+                {
                     HttpRequestMessage httpRequestMessage = new HttpRequestMessage() { Method = HttpMethod.Get, RequestUri = new Uri(updateContent.urlDownload) };
                     ProgressMessageHandler progressMessageHandler = new ProgressMessageHandler(new HttpClientHandler() { AllowAutoRedirect = true });
                     httpClient = new HttpClient(progressMessageHandler) { Timeout = Timeout.InfiniteTimeSpan };
@@ -169,10 +163,11 @@ namespace Launcher.View.Pages
                     }
                 }, cancellationToken: token);
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 Loges.LoggingProcess(LogLevel.ERROR, ex: ex);
-            }*/
-        }
+            }
+        }*/
 
         private void OnButtonClick(object sender, RoutedEventArgs e)
         {

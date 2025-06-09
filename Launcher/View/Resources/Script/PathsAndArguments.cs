@@ -77,5 +77,12 @@ namespace Launcher.View.Resources.Script
         public static readonly string readmer = @".\readmer";
         public static readonly string games = @$".\{readmer}\games";
         #endregion
+
+        public static string destinationPath(string name) {
+            return Path.Combine(Paths.games, $"{name}.png");
+        }
+        public static string convertPath(string name) {
+            return Path.Combine(Paths.games, $"{name}.ico");
+        }
     }
 }

@@ -1,5 +1,4 @@
-﻿using CheckConnectInternet;
-using Launcher.View.Resources.Script;
+﻿using Launcher.View.Resources.Script;
 using Launcher.View.Windows;
 using System.Diagnostics;
 using System.IO;

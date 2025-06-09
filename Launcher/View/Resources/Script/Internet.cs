@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace CheckConnectInternet
+namespace Launcher.View.Resources.Script
 {
     internal class Internet
     {

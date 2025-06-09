@@ -1,5 +1,4 @@
-﻿using CheckConnectInternet;
-using Launcher.View.Components;
+﻿using Launcher.View.Components;
 using Launcher.View.Resources.Script;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

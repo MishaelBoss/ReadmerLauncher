@@ -1,5 +1,5 @@
-﻿using Launcher.View.Resources.Script;
 using Launcher.View.Resources.Script.Json;
+﻿using Launcher.View.Resources.Script;
 using Microsoft.Win32;
 using System.Windows;
 using System.Windows.Controls;

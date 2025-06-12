@@ -7,7 +7,9 @@
         mc:Ignorable="d"
         Background="Transparent"
         AllowsTransparency="True"
-        Title="DownloadUpdateLauncherWindow" MaxHeight="150" MaxWidth="350" Height="150" Width="350" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize">
+        Title="DownloadUpdateLauncherWindow" 
+        MaxHeight="150" MaxWidth="350" Height="150" Width="350" 
+        WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize">
     
     <Window.Clip>
         <RectangleGeometry Rect="0,0,1000,600" RadiusX="10" RadiusY="10"/>

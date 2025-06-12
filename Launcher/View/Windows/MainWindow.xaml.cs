@@ -11,6 +11,8 @@ namespace Launcher.View.Windows
     {
         private Warning userControlWarning = new Warning();
 
+        private Authorization Authorization = new Authorization();
+
         private readonly IHost _host;
 
         public MainWindow()
@@ -28,14 +30,16 @@ namespace Launcher.View.Windows
         private void Initialize() {
             InitializeFolderAndFile.Initialize();
 
-            if (!Internet.connect()) Test.Visibility = Visibility.Visible;
-            else Test.Visibility = Visibility.Hidden;
+            if (!Internet.connect()) ErrorConnectInternet.Visibility = Visibility.Visible;
 
             Update.UpdateUI(BackgroundUIFunction, 0, 0, 5);
+
+            Authorization.Show();
+            this.Close();
         }
 
         private void BackgroundUIFunction(object sender, EventArgs ea) {
-            if (!Internet.connect())
+/*            if (!Internet.connect())
             {
                 if (ErrorConnectInternet.isIgnoreErrorToConnectInternet)
                 {
@@ -45,7 +49,7 @@ namespace Launcher.View.Windows
                     }
                 }
             }
-            else if (GridMainFrame.Children.Contains(userControlWarning)) GridMainFrame.Children.Remove(userControlWarning);
+            else if (GridMainFrame.Children.Contains(userControlWarning)) GridMainFrame.Children.Remove(userControlWarning);*/
 
             Autoload.SetAutoload();
         }
@@ -56,10 +60,12 @@ namespace Launcher.View.Windows
                 DragMove();
         }
 
-/*        protected override async void OnClosed(EventArgs e)
-        {
-            await _host.StopAsync();
-            base.OnClosed(e);
-        }*/
+        
+
+        /*        protected override async void OnClosed(EventArgs e)
+                {
+                    await _host.StopAsync();
+                    base.OnClosed(e);
+                }*/
     }
 }

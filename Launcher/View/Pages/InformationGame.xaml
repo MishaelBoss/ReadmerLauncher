@@ -5,13 +5,61 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Launcher.View.Pages"
       mc:Ignorable="d" 
-      d:Background="#354D73"
+      Background="#354D73"
       d:DesignHeight="600" d:DesignWidth="1000"
       Title="InformationGame">
 
     <Grid>
-        <Grid VerticalAlignment="Center" Height="100" Background="AntiqueWhite">
-            <Button Content="Получить игру" Background="green"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="350"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid Height="150" Width="500" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Grid>
+                    <Border Height="150" Width="500" CornerRadius="15" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#383838" Opacity="0.8"/>
+                </Grid>
+                <Image Name="ImageGame" Source="/View/Resources/Image/DefenderRat_background.png" Stretch="UniformToFill" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="1" VerticalAlignment="Center">
+            <Border Height="100" Width="500" BorderThickness="15,10,15,15" CornerRadius="15" Opacity="0.8" ClipToBounds="True">
+                <Border.Background>
+                    <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
+                        <GradientStop Color="#0355D7" Offset="0"/>
+                        <GradientStop Color="#2A58A1" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Name="NameGame" Content="" Foreground="White" FontSize="20" FontWeight="Medium"/>
+                        <Grid Grid.Column="1">
+                            <Grid Height="40" Width="120" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="40"/>
+                                        <ColumnDefinition Width="40"/>
+                                        <ColumnDefinition Width="40"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Grid.Column="0" Source="/View/Resources/Image/systeams/windows.png" Width="20" Height="20" Opacity="1"/>
+                                    <Image Grid.Column="1" Source="/View/Resources/Image/systeams/linux.png" Width="20" Height="20" Opacity="0.2"/>
+                                    <Image Grid.Column="2" Source="/View/Resources/Image/systeams/mac.png" Width="20" Height="20" Opacity="0.2"/>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    <Button Style="{DynamicResource ButtonBuy}" Grid.Row="1" Width="150" HorizontalAlignment="Right" Content="В мою библиотеку"/>
+                </Grid>
+            </Border>
         </Grid>
     </Grid>
 </Page>

@@ -1,28 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
+﻿using System.Windows.Controls;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Launcher.View.Components
 {
-    /// <summary>
-    /// Логика взаимодействия для CartGame.xaml
-    /// </summary>
     public partial class CartGame : UserControl
     {
         public CartGame()
         {
             InitializeComponent();
+        }
+
+        public BitmapImage SetIcon
+        {
+            get => (BitmapImage)Image.Source;
+            set => Image.Source = value;
+        }
+
+        public string SetName
+        {
+            get => (string)Name.Content;
+            set => Name.Content = value;
         }
     }
 }

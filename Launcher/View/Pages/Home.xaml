@@ -4,11 +4,21 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Launcher.View.Pages"
+      xmlns:vm="clr-namespace:Launcher.ViewModel"
       mc:Ignorable="d" 
+      d:Background="#354D73"
       d:DesignHeight="600" d:DesignWidth="1000"
       Title="Home">
 
+    <Page.DataContext>
+        <vm:HomeViewModel/>
+    </Page.DataContext>
+
     <Grid>
         <Label Content="Главная" Foreground="White" FontSize="40" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+        <StackPanel Grid.Row="1" Name="Content" Orientation="Horizontal"/>
+        <Grid>
+            <Frame Content="{Binding ContentPage}" NavigationUIVisibility="Hidden"/>
+        </Grid>
     </Grid>
 </Page>

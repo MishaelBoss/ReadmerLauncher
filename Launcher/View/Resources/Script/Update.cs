@@ -2,7 +2,7 @@
 
 namespace Launcher.View.Resources.Script
 {
-    class Update
+    class Update()
     {
         private static DispatcherTimer dispatcherTimer;
 

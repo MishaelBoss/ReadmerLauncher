@@ -15,8 +15,8 @@ namespace Launcher.View.Pages
     {
         private string _name { get; set; }
         private string _version { get; set; }
-        private string _description { get; set; }
         private string _icon { get; set; }
+        private string _background { get; set; }
         private int _watch { get; set; }
         private int _wereTime { get; set; }
 
@@ -24,7 +24,7 @@ namespace Launcher.View.Pages
 
         private bool initializeParametr()
         {
-            if (_name != string.Empty && _version != string.Empty) {
+            if (_name != string.Empty && _version != string.Empty && _background != string.Empty) {
                 try
                 {
                     return true;
@@ -49,51 +49,19 @@ namespace Launcher.View.Pages
             Initialize();
         }
 
-        /*public void DownloadContent(string destinationPath, string convertPath)
-        {
-            try
-            {
-                if (Internet.connect())
-                {
-                    using (var client = new HttpClient())
-                    {
-                        try
-                        {
-                            using (var s = client.GetStreamAsync(_icon))
-                            {
-                                using (var fs = new FileStream(destinationPath, FileMode.OpenOrCreate))
-                                {
-                                    s.Result.CopyTo(fs);
-                                }
-
-                                if (!File.Exists(convertPath))
-                                    FluentConverter.Load(destinationPath).ConvertTo(convertPath).Convert();
-
-                                if (File.Exists(destinationPath)) File.Delete(destinationPath);
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            Loges.LoggingProcess(LogLevel.ERROR, ex: ex);
-                            MessageBox.Show($"Ошибка при загрузке контента: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                        }
-                    }
-                }
-                else {
-                    Loges.LoggingProcess(LogLevel.INFO, "Подключитесь к интернету");
-                    MessageBox.Show("Вовремя работы отключился интернет", "Подключитесь к интернету", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-            }
-            catch (Exception ex) {
-                Loges.LoggingProcess(LogLevel.INFO, ex: ex);
-            }
-        }*/
-
         private void Initialize() {
             CheckInstallation();
 
             if (initializeParametr())
             {
+                BitmapImage bitmapImage = new BitmapImage();
+                bitmapImage.BeginInit();
+                bitmapImage.UriSource = new Uri(_background);
+                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapImage.EndInit();
+
+                Background.Source = bitmapImage;
+
                 Update.UpdateUI(BackgroundUIFunction, 0, 0, 1);
 
                 string AppmanifestFilePath = Path.Combine(Paths.work, $"appmanifest_{_name}.json");
@@ -116,6 +84,7 @@ namespace Launcher.View.Pages
             _name = "DefenderRat";
             _version = "1.0.0.0";
             _icon = "https://raw.githubusercontent.com/RedmerGameAndTechnologies/JsonLauncher/refs/heads/main/icons/DefenderRat/DefenderRat_icon.png";
+            _background = "https://raw.githubusercontent.com/RedmerGameAndTechnologies/JsonLauncher/refs/heads/main/background/DefenderRat/DefenderRat_background.png";
 
 /*            string destinationPath = Path.Combine(Paths.games, $"{_name}.png");
             string convertPath = Path.Combine(Paths.games, $"{_name}.ico");*/

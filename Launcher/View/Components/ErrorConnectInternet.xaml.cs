@@ -21,6 +21,9 @@ namespace Launcher.View.Components
         {
             this.Visibility = Visibility.Hidden;
             isIgnoreErrorToConnectInternet = true;
+
+            var warning = Warning.Instance;
+            warning.Visibility = Visibility.Visible;
         }
     }
 }

@@ -78,8 +78,7 @@ namespace Launcher.View.Resources.Script
                                             }
                                         }
                                     });
-
-                                notification.ShowNotification(GetNotificationPosition());
+                                //notification.ShowNotification(GetNotificationPosition());
                             }
                             catch (Exception ex)
                             {
@@ -118,7 +117,7 @@ namespace Launcher.View.Resources.Script
                                         }
                                     });
 
-                                notification.ShowNotification(GetNotificationPosition());
+                                //notification.ShowNotification(GetNotificationPosition());
                             }
                             catch (Exception ex)
                             {
@@ -151,13 +150,5 @@ namespace Launcher.View.Resources.Script
                 _logger.LogError(ex, "Ошибка при проверке обновлений");
             }
         }
-
-        private Point GetNotificationPosition()
-        {
-            double x = SystemParameters.WorkArea.Right - 320;
-            double y = SystemParameters.WorkArea.Bottom - 200;
-            return new Point(x, y);
-        }
     }
-
 }

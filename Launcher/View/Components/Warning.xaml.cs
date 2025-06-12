@@ -4,9 +4,12 @@ namespace Launcher.View.Components
 {
     public partial class Warning : UserControl
     {
+        public static Warning Instance { get; private set; }
+
         public Warning()
         {
             InitializeComponent();
+            Instance = this;
         }
 
         public async void StartWarningAnimation()

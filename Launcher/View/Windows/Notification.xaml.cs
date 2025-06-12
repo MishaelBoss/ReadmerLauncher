@@ -14,6 +14,8 @@ namespace Launcher.View.Windows
             Loaded += CustomNotification_Loaded;
             ShowInTaskbar = false;
             Topmost = true;
+
+            ShowNotification(GetNotificationPosition());
         }
 
         public Notification(string title, string message, BitmapImage image = null, Action onClick = null) : this()
@@ -32,9 +34,14 @@ namespace Launcher.View.Windows
 
         private void CustomNotification_Loaded(object sender, RoutedEventArgs e)
         {
-            MouseDown += (s, args) =>
+            MouseLeftButtonUp += (s, args) =>
             {
                 ClickAction?.Invoke();
+                Close();
+            };
+
+            MouseRightButtonDown += (s, args) =>
+            {
                 Close();
             };
 
@@ -52,6 +59,13 @@ namespace Launcher.View.Windows
             Left = location.X;
             Top = location.Y;
             Show();
+        }
+
+        private Point GetNotificationPosition()
+        {
+            double x = SystemParameters.WorkArea.Right - 320;
+            double y = SystemParameters.WorkArea.Bottom - 200;
+            return new Point(x, y);
         }
     }
 }

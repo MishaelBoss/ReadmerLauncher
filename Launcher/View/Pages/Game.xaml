@@ -22,7 +22,7 @@
                 <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
             <Border Grid.Row="0"  Background="Gray" VerticalAlignment="Center" HorizontalAlignment="Center">
-                <Image Source="/View/Resources/Image/DefenderRat_background.png" Stretch="UniformToFill" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <Image Name="Background" Source="/View/Resources/Image/DefenderRat_background.png" Stretch="UniformToFill" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             </Border>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>

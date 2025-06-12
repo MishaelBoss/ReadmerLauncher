@@ -8,7 +8,8 @@
         xmlns:local="clr-namespace:Launcher.View.Windows"
         mc:Ignorable="d"
         AllowsTransparency="True"
-        Title="MainWindow" Height="600" Width="1000" MinHeight="600" MinWidth="1000" MaxHeight="1200" MaxWidth="2000" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize">
+        Title="MainWindow" Height="600" Width="1000" MinHeight="600" MinWidth="1000" MaxHeight="1200" MaxWidth="2000" 
+        WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize">
     
     <Window.DataContext>
         <vm:MainViewModel/>
@@ -30,10 +31,11 @@
                 </Grid>
                 <Grid Grid.Row="1" Name="GridMainFrame">
                     <Frame Content="{Binding ContentPage}" NavigationUIVisibility="Hidden"/>
+                    <controls:Warning x:Name="Warning" Visibility="Hidden"/>
                 </Grid>
             </Grid>
             <Grid Name="Main">
-                <controls:ErrorConnectInternet x:Name="Test" Visibility="Hidden"/>
+                <controls:ErrorConnectInternet x:Name="ErrorConnectInternet" Visibility="Hidden"/>
                 <controls:InformationInstallGame x:Name="GlobalInstallInfo" Visibility="Hidden"/>
             </Grid>
         </Grid>

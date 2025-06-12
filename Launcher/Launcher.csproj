@@ -10,11 +10,12 @@
     <ApplicationManifest>E:\Перенос\LauncherLes1\LauncherLes1\app.manifest</ApplicationManifest>
     <PackageIcon></PackageIcon>
     <ApplicationIcon>View\Resources\Image\Logo\LogoProject.ico</ApplicationIcon>
-    <FileVersion>1.0.1.0</FileVersion>
-    <AssemblyVersion>1.0.1.0</AssemblyVersion>
+    <FileVersion>1.0.1.4</FileVersion>
+    <AssemblyVersion>1.0.1.4</AssemblyVersion>
     <PackageReleaseNotes></PackageReleaseNotes>
     <RepositoryUrl>https://github.com/MishaelBoss/ReadmerLauncher</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+    <PackageReadmeFile>Documentation.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -27,6 +28,9 @@
     <None Remove="View\Resources\Image\Infomation.png" />
     <None Remove="View\Resources\Image\Logo.png" />
     <None Remove="View\Resources\Image\Sad_smiley.jpg" />
+    <None Remove="View\Resources\Image\systeams\linux.png" />
+    <None Remove="View\Resources\Image\systeams\mac.png" />
+    <None Remove="View\Resources\Image\systeams\windows.png" />
     <None Remove="View\Resources\Image\Warning.png" />
   </ItemGroup>
 
@@ -44,6 +48,18 @@
 
   <ItemGroup>
     <Content Include="View\Resources\Image\Logo\LogoProject.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="View\Resources\Image\systeams\linux.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="View\Resources\Image\systeams\mac.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="View\Resources\Image\systeams\windows.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
@@ -113,6 +129,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Documentation.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
     <None Update="View\Resources\Image\Logo\LogoProject.ico">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>

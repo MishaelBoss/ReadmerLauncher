@@ -6,16 +6,16 @@
              xmlns:local="clr-namespace:Launcher.View.Components"
              mc:Ignorable="d" 
              Background="Black"
-             d:DesignHeight="200" d:DesignWidth="300">
-    
-    <Button Style="{DynamicResource ButtonViewCartGame}" Command="">
+             d:DesignHeight="200" d:DesignWidth="300" MaxHeight="200" MaxWidth="300">
+
+    <Button Style="{DynamicResource ButtonViewCartGame}" Command="{Binding openInformationGamePage}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
-            <Image Grid.Row="0" Source="/View/Resources/Image/DefenderRat_background.png" Stretch="UniformToFill" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            <Label Grid.Row="1" Content="Defender Rat" Foreground="White"/>
+            <Image Name="Image" Grid.Row="0" Source="/View/Resources/Image/DefenderRat_background.png" Stretch="UniformToFill" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Label Name="Name" Grid.Row="1" Content="Defender Rat" Foreground="White"/>
         </Grid>
     </Button>
 </UserControl>

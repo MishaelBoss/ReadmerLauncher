@@ -9,7 +9,7 @@ namespace Launcher.View.Resources.Script
                 Dns.GetHostEntry("dotnet.beget.tech");
                 return true;
             }
-            catch { 
+            catch {
                 return false;
             }
         }

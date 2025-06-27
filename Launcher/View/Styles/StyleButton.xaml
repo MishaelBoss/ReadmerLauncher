@@ -11,7 +11,83 @@
             </Setter.Value>
         </Setter>
     </Style>
-
+    <ControlTemplate x:Key="SlideMenuBtn" TargetType="Button">
+        <Grid Name="Btn" Height="45">
+            <Border>
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="{Binding SetIcon, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                           VerticalAlignment="Center" HorizontalAlignment="Left"
+                           Height="30" Width="30" Stretch="Fill" Margin="20,0,0,0"/>
+                    <Label Content="{Binding SetName, RelativeSource={RelativeSource AncestorType=UserControl}}" Margin="10,0,0,0"
+                           Background="Transparent" FontSize="15" FontWeight="Bold"
+                           VerticalAlignment="Center" HorizontalAlignment="Left">
+                        <Label.Style>
+                            <Style TargetType="Label">
+                                <Setter Property="Foreground" Value="#FF9D9999"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=IsMouseOver, ElementName=Btn}" 
+                                                 Value="true">
+                                        <Setter Property="Foreground" Value="White"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource
+                                        Mode=FindAncestor,
+                                        AncestorType={x:Type Button}},
+                                        Path = IsFocused}" Value="true">
+                                        <Setter Property="Foreground" Value="White"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Label.Style>
+                    </Label>
+                </StackPanel>
+            </Border>
+            <Border Name="MouseOverBorder" Background="#FF8D8D8D">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Setter Property="Opacity" Value="0"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=IsMouseOver, ElementName=Btn}" 
+                                                 Value="true">
+                                <Setter Property="Opacity" Value="0.1"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+            </Border>
+            <Border Name="IsSelectedBorder" Background="#FF8D8D8D">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Setter Property="Opacity" Value="0"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource
+                                        Mode=FindAncestor,
+                                        AncestorType={x:Type Button}},
+                                        Path = IsFocused}" Value="true">
+                                <Setter Property="Opacity" Value="0.1"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+            </Border>
+            <Border Name="IsSelectedBorder2" Background="Transparent">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Setter Property="Visibility" Value="Hidden"/>
+                        <Setter Property="BorderThickness" Value="3,0,0,0"/>
+                        <Setter Property="BorderBrush" Value="#FF00AEFF"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource
+                                        Mode=FindAncestor,
+                                        AncestorType={x:Type Button}},
+                                        Path = IsFocused}" Value="true">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+            </Border>
+        </Grid>
+    </ControlTemplate>
     <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
     <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
     <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
@@ -138,17 +214,7 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Foreground" Value="{DynamicResource ContentColorButton_01_Wheat}"/>
                             <Setter Property="Cursor" Value="Hand"/>
-                            <Setter Property="Opacity" Value="0.6"/>
-                            <Setter Property="Effect">
-                                <Setter.Value>
-                                    <BlurEffect Radius="25"/>
-                                </Setter.Value>
-                            </Setter>
-                        </Trigger>
-                        <Trigger Property="IsFocused" Value="true">
-                            <Setter Property="Foreground" Value="{DynamicResource ContentColorButton_01_Wheat}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

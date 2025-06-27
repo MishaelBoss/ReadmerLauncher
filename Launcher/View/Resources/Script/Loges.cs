@@ -10,6 +10,8 @@ namespace Launcher.View.Resources.Script
 
         public static void ExceptionEventApp(object sender, UnhandledExceptionEventArgs ueea)
         {
+            EnsureLogDirectory();
+
             if (ueea.ExceptionObject is Exception e)
             {
                 LoggingProcess(LogLevel.ERROR, e.ToString());
@@ -37,6 +39,11 @@ namespace Launcher.View.Resources.Script
             if (!Directory.Exists(Paths.log))
             {
                 Directory.CreateDirectory(Paths.log);
+            }
+
+            if (!Directory.Exists(Paths.crashes))
+            {
+                Directory.CreateDirectory(Paths.crashes);
             }
         }
 
@@ -68,7 +75,7 @@ namespace Launcher.View.Resources.Script
             File.AppendAllText(_currentLogPath, entry);
         }
 
-        public static string GetPageInfo(Exception ex)
+        private static string GetPageInfo(Exception ex)
         {
             if (ex != null && ex.StackTrace != null)
             {
@@ -77,7 +84,7 @@ namespace Launcher.View.Resources.Script
             return "Информация о странице не доступна";
         }
 
-        public static string GetPageFromStackTrace(string stackTrace)
+        private static string GetPageFromStackTrace(string stackTrace)
         {
             return stackTrace;
         }

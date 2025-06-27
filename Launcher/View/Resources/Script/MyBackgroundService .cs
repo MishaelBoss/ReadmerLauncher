@@ -1,6 +1,5 @@
 ﻿using Launcher.View.Windows;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Threading;
@@ -9,37 +8,33 @@ namespace Launcher.View.Resources.Script
 {
     public class MyBackgroundService : BackgroundService
     {
-        private readonly ILogger<MyBackgroundService> _logger;
         private DownloadUpdateLauncherWindow _launcherWindow { get; set; }
-
-        public MyBackgroundService(ILogger<MyBackgroundService> logger)
-        {
-            _logger = logger;
-        }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            _logger.LogInformation("Фоновый сервис мониторинга обновлений запущен");
-
             try
             {
                 while (!stoppingToken.IsCancellationRequested)
                 {
-                    await CheckForUpdatesAsync(stoppingToken);
+                    _ = Application.Current.Dispatcher.Invoke(async () =>
+                    {
+                        await CheckForUpdatesAsync(stoppingToken);
+                    });
+
                     await Task.Delay(TimeSpan.FromMinutes(5), stoppingToken);
                 }
             }
             catch (OperationCanceledException)
             {
-                _logger.LogInformation("Фоновый сервис был отменён");
+                Loges.LoggingProcess(LogLevel.INFO, "Фоновый сервис был отменён");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Ошибка в фоновом сервисе");
+                Loges.LoggingProcess(LogLevel.WARN, "Ошибка в фоновом сервисе", ex: ex);
             }
             finally
             {
-                _logger.LogInformation("Фоновый сервис мониторинга обновлений остановлен");
+                Loges.LoggingProcess(LogLevel.INFO, "Фоновый сервис мониторинга обновлений остановлен");
             }
         }
 
@@ -47,8 +42,6 @@ namespace Launcher.View.Resources.Script
         {
             try
             {
-                _logger.LogInformation("Проверка обновлений...");
-
                 await CheckUpdate.CheckUpdateJson();
 
                 if (Arguments.curverVersion.CompareTo(Arguments.readver) < 0 && Arguments.Receive_notifications)
@@ -59,7 +52,7 @@ namespace Launcher.View.Resources.Script
                         {
                             try
                             {
-                                var notification = new Notification(
+                                var notification = new NotificationMessageWindow(
                                     title: "Вышло экстренное обновление!",
                                     message: $"Новая версия {Arguments.readver}\nТекущая версия {Arguments.curverVersion}",
                                     onClick: () =>
@@ -78,12 +71,10 @@ namespace Launcher.View.Resources.Script
                                             }
                                         }
                                     });
-                                //notification.ShowNotification(GetNotificationPosition());
                             }
                             catch (Exception ex)
                             {
-                                Loges.LoggingProcess(LogLevel.ERROR, ex: ex);
-                                _logger.LogError(ex, "Ошибка при показе уведомления");
+                                Loges.LoggingProcess(LogLevel.ERROR, "Ошибка при показе уведомления", ex: ex);
                             }
                         }, DispatcherPriority.Normal, token);
                     }
@@ -92,7 +83,7 @@ namespace Launcher.View.Resources.Script
                         {
                             try
                             {
-                                var notification = new Notification(
+                                var notification = new NotificationMessageWindow(
                                     title: "Доступно обновление!",
                                     message: $"Новая версия {Arguments.readver}\nТекущая версия {Arguments.curverVersion}",
                                     onClick: () =>
@@ -117,12 +108,10 @@ namespace Launcher.View.Resources.Script
                                         }
                                     });
 
-                                //notification.ShowNotification(GetNotificationPosition());
                             }
                             catch (Exception ex)
                             {
-                                Loges.LoggingProcess(LogLevel.ERROR, ex:ex);
-                                _logger.LogError(ex, "Ошибка при показе уведомления");
+                                Loges.LoggingProcess(LogLevel.ERROR, "Ошибка при показе уведомления", ex: ex);
                             }
                         }, DispatcherPriority.Normal, token);
                     }
@@ -147,7 +136,7 @@ namespace Launcher.View.Resources.Script
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Ошибка при проверке обновлений");
+                Loges.LoggingProcess(LogLevel.ERROR, "Ошибка при проверке обновлений", ex: ex);
             }
         }
     }

@@ -1,9 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Launcher.View.Pages;
-using LauncherLes1.Model;
+using Launcher.View.Resources.Script.Cookie;
+using Launcher.View.Windows;
 using MvvmCross.ViewModels;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -12,9 +13,10 @@ namespace Launcher.ViewModel
     public class MainViewModel : MvxViewModel
     {
         private Page _homePage = new Home();
-        private Page _myGames = new MyGames();
+        private Page _myGames = new MyLibrary();
         private Page _pageGames = new Game();
         private Page _settings = new Settings();
+        private Page _profile = new Profile();
 
         private Page _DashBoard;
         public Page DashBoard
@@ -28,13 +30,6 @@ namespace Launcher.ViewModel
         {
             get => _CurPage;
             set => SetProperty(ref _CurPage, value);
-        }
-
-        private ObservableCollection<IServer> _serversList = new ObservableCollection<IServer>();
-        public ObservableCollection<IServer> ServersList
-        {
-            get => _serversList;
-            set => SetProperty(ref _serversList, value);
         }
 
         public MainViewModel()
@@ -78,6 +73,32 @@ namespace Launcher.ViewModel
                 return new RelayCommand(() => Process.Start(new ProcessStartInfo("https://discord.gg/efEFJfEcXH") { UseShellExecute = true }));
             }
         }
+        public ICommand openProfile
+        {
+            get
+            {
+                return new RelayCommand(() => ContentPage = _profile);
+            }
+        }
+        public ICommand logout
+        {
+            get
+            {
+                return new RelayCommand(() =>
+                    Logout()
+                );
+            }
+        }
         #endregion
+
+        private void Logout() {
+
+            LogoutCookie.DeleteCookie("test2");
+
+            Application.Current.MainWindow.Close();
+            
+            AuthorizationWindow authorizationWindow = new();
+            authorizationWindow.Show();
+        }
     }
 }

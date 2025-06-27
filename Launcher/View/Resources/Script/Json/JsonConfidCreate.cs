@@ -13,31 +13,11 @@ namespace Launcher.View.Resources.Script.Json
                 apps = new JObject()
             };
 
-            File.WriteAllText(path, JsonConvert.SerializeObject(defaultData, Formatting.Indented));
+            if(File.Exists(Paths.work)) File.WriteAllText(path, JsonConvert.SerializeObject(defaultData, Formatting.Indented));
+            else Directory.CreateDirectory(Paths.work);
         }
 
         public static void Create(string nameGame, string gamePath) {
-            /*var jsonObject = new
-            {
-                apps = new
-                {
-                    name_id = $"appmanifest__{nameGame}.json"
-                }
-            };
-
-            string json = JsonConvert.SerializeObject(jsonObject, Formatting.Indented);
-
-            SaveFileDialog saveFileDialog = new SaveFileDialog
-            {
-                Filter = "JSON files (*.json)|*.json|All files (*.*)|*.*",
-                FileName = $"appmanifest__{nameGame}.json"
-            };
-
-            if (saveFileDialog.ShowDialog() == true)
-            {
-                File.WriteAllText(saveFileDialog.FileName, json);
-            }*/
-
             string LibraryfoldersFilePath = Path.Combine(Paths.work, Files.LibraryfoldersJson);
             string manifestFileName = $"appmanifest_{nameGame}.json";
             string manifestPath = Path.Combine(Paths.work, manifestFileName);

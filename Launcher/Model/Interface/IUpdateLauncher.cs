@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Launcher.Model
+namespace Launcher.Model.Interface
 {
     public interface IUpdateLauncher
     {

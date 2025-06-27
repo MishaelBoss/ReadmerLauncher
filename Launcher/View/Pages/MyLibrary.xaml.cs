@@ -6,20 +6,21 @@ using System.Windows.Media.Imaging;
 
 namespace Launcher.View.Pages
 {
-    public partial class Home : Page
+    public partial class MyLibrary : Page
     {
-        private List<CartGame> btnGame = new List<CartGame>();
+        List<ButtonSelectGame> btnGame;
 
-        public Home()
+        public MyLibrary()
         {
             InitializeComponent();
             ConectToBD();
             Load();
         }
 
-        private void ConectToBD()
-        {
+        private void ConectToBD() {
+
             try {
+                //string request = "SELECT * FROM public.library";
                 string sql = "SELECT * FROM public.game";
 
                 using (var conn = new NpgsqlConnection(Arguments.connection))
@@ -29,24 +30,16 @@ namespace Launcher.View.Pages
                     {
                         using (var reader = command.ExecuteReader())
                         {
+                            btnGame = new List<ButtonSelectGame>();
+
                             while (reader.Read())
                             {
                                 string title = reader.GetString(3);
-                                string description = reader.GetString(4);
-                                string version = reader.GetString(5);
-                                string background_image = reader.GetString(6);
                                 string icon_image = reader.GetString(7);
-                                string header_image = reader.GetString(8);
-                                string mini_image = reader.GetString(9);
-                                decimal money = reader.GetFieldValue<decimal>(10);
-                                string url_download = reader.GetString(11);
-                                bool windows_system = reader.GetBoolean(12);
-                                bool linux_system = reader.GetBoolean(13);
-                                bool mac_system = reader.GetBoolean(14);
 
-                                btnGame.Add(new CartGame()
+                                btnGame.Add(new ButtonSelectGame()
                                 {
-                                    SetIcon = new BitmapImage(new Uri(background_image)),
+                                    SetIcon = new BitmapImage(new Uri(icon_image)),
                                     SetName = title
                                 });
                             }
@@ -60,11 +53,9 @@ namespace Launcher.View.Pages
             }
         }
 
-        private void Load()
-        {
-            foreach (CartGame button in btnGame)
-            {
-                Content.Children.Add(button);
+        private void Load() {
+            foreach (ButtonSelectGame button in btnGame) {
+                LeftBorder.Children.Add(button);
             }
         }
     }

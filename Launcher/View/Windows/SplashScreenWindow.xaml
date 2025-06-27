@@ -1,0 +1,42 @@
+﻿<Window x:Class="Launcher.View.Windows.SplashScreenWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Launcher.View.Windows"
+        mc:Ignorable="d"
+        AllowsTransparency="True"
+        Title="SplashScreenWindow" Height="600" Width="1000" MinHeight="600" MinWidth="1000" MaxHeight="1200" MaxWidth="2000" 
+        WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize">
+
+    <Window.Clip>
+        <RectangleGeometry Rect="0,0,1000,600" RadiusX="15" RadiusY="15"/>
+    </Window.Clip>
+
+    <Border Style="{StaticResource WindowBorderStyle}" MouseDown="TopBorder_MouseDown">
+        <Grid>
+            <Image Source="/View/Resources/SplashScreen/SplashScreen.png" Stretch="UniformToFill" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Label Name="Version" Content="Версия: 1.0.0.0" FontSize="15" Foreground="White" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="94,540,0,0"/>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="20"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" FlowDirection="RightToLeft" >
+                        <Button Style="{StaticResource ButtonTopSliderBarClose}" Click="Close">
+                            <Button.Background>
+                                <ImageBrush ImageSource="/View/Resources/Image/closeproject.png"/>
+                            </Button.Background>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

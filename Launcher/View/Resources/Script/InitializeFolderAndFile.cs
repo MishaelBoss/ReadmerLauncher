@@ -18,6 +18,9 @@ namespace Launcher.View.Resources.Script
             if (!Directory.Exists(Paths.readmer)) Directory.CreateDirectory(Paths.readmer);
             if (!Directory.Exists(Paths.games)) Directory.CreateDirectory(Paths.games);
             if (!File.Exists(LibraryfoldersFilePath)) JsonConfidCreate.CreateLibraryFolders(LibraryfoldersFilePath);
+            if (!Directory.Exists(Paths.appcache)) Directory.CreateDirectory(Paths.appcache);
+            if (!Directory.Exists(Paths.librarycache)) Directory.CreateDirectory(Paths.librarycache);
+            if (!Directory.Exists(Paths.userdata)) Directory.CreateDirectory(Paths.userdata);
         }
     }
 }

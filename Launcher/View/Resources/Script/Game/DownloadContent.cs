@@ -1,5 +1,4 @@
-﻿using GroupDocs.Conversion;
-using System.IO;
+﻿using System.IO;
 using System.Net.Http;
 using System.Windows;
 
@@ -7,7 +6,7 @@ namespace Launcher.View.Resources.Script.Game
 {
     public class DownloadContent
     {
-        public static void Download(string destinationPath, string convertPath, string url)
+        public static void Download(string destinationPath, string url)
         {
             try
             {
@@ -23,11 +22,6 @@ namespace Launcher.View.Resources.Script.Game
                                 {
                                     s.Result.CopyTo(fs);
                                 }
-
-                                if (!File.Exists(convertPath))
-                                    FluentConverter.Load(destinationPath).ConvertTo(convertPath).Convert();
-
-                                if (File.Exists(destinationPath)) File.Delete(destinationPath);
                             }
                         }
                         catch (Exception ex)

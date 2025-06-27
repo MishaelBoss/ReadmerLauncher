@@ -13,16 +13,15 @@ namespace Launcher.View.Pages
 {
     public partial class Game : Page
     {
-        private string _name { get; set; }
-        private string _version { get; set; }
-        private string _icon { get; set; }
-        private string _background { get; set; }
-        private int _watch { get; set; }
-        private int _wereTime { get; set; }
+        private string _name;
+        private string _version;
+        private string _icon;
+        private string _background;
+        private int _watch;
+        private int _wereTime;
+        private bool? isFileDownloadNow;
 
-        private bool? isFileDownloadNow { get; set; } = false;
-
-        private bool initializeParametr()
+        private bool InitializeParametr()
         {
             if (_name != string.Empty && _version != string.Empty && _background != string.Empty) {
                 try
@@ -40,27 +39,34 @@ namespace Launcher.View.Pages
             }
         }
 
-        private Stopwatch watch = new Stopwatch();
+        private Stopwatch watch = new();
 
         public Game()
         {
             InitializeComponent();
-            LoadData();
+
+            new Thread(
+                delegate ()
+                {
+                    LoadData();
+                }).Start();
+
             Initialize();
         }
 
         private void Initialize() {
             CheckInstallation();
 
-            if (initializeParametr())
+            if (InitializeParametr())
             {
-                BitmapImage bitmapImage = new BitmapImage();
-                bitmapImage.BeginInit();
-                bitmapImage.UriSource = new Uri(_background);
-                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                bitmapImage.EndInit();
-
-                Background.Source = bitmapImage;
+                try
+                {
+                    Background.Source = new BitmapImage(new Uri(Path.Combine($"{Paths.appLibrarycache(_name)}", $"{_name}.png")));
+                }
+                catch (Exception ex)
+                {
+                    Loges.LoggingProcess(LogLevel.ERROR, ex: ex);
+                }
 
                 Update.UpdateUI(BackgroundUIFunction, 0, 0, 1);
 
@@ -83,13 +89,15 @@ namespace Launcher.View.Pages
         private void LoadData() {
             _name = "DefenderRat";
             _version = "1.0.0.0";
-            _icon = "https://raw.githubusercontent.com/RedmerGameAndTechnologies/JsonLauncher/refs/heads/main/icons/DefenderRat/DefenderRat_icon.png";
+            _icon = "https://raw.githubusercontent.com/RedmerGameAndTechnologies/JsonLauncher/refs/heads/main/icons/DefenderRat/DefenderRat_icon.ico";
             _background = "https://raw.githubusercontent.com/RedmerGameAndTechnologies/JsonLauncher/refs/heads/main/background/DefenderRat/DefenderRat_background.png";
 
-/*            string destinationPath = Path.Combine(Paths.games, $"{_name}.png");
-            string convertPath = Path.Combine(Paths.games, $"{_name}.ico");*/
+            /*            string destinationPath = Path.Combine(Paths.games, $"{_name}.png");
+                        string convertPath = Path.Combine(Paths.games, $"{_name}.ico");*/
 
-            if (!File.Exists(Paths.convertPath(_name))) DownloadContent.Download(Paths.destinationPath(_name), Paths.convertPath(_name), _icon);
+            if (!Directory.Exists(Paths.appLibrarycache(name: _name))) Directory.CreateDirectory(Paths.appLibrarycache(name: _name));
+            if (!File.Exists(Paths.destinationPath(Paths.games, _name, "ico"))) DownloadContent.Download(Paths.destinationPath(Paths.games, _name, "ico"), _icon);
+            if (Directory.Exists(Paths.appLibrarycache(name: _name))) DownloadContent.Download(Paths.destinationPath(Paths.appLibrarycache(_name), _name, "png"), _background);
         }
 
         private void BackgroundUIFunction(object sender, EventArgs ea)
@@ -146,9 +154,9 @@ namespace Launcher.View.Pages
             }
             else
             {
-                BitmapImage bitmapImage = new BitmapImage();
+                BitmapImage bitmapImage = new();
                 bitmapImage.BeginInit();
-                bitmapImage.UriSource = new Uri(@"https://raw.githubusercontent.com/RedmerGameAndTechnologies/JsonLauncher/refs/heads/main/icons/DefenderRat/Defender%20Rat.png");
+                bitmapImage.UriSource = new Uri(_icon);
                 bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
                 bitmapImage.EndInit();
 

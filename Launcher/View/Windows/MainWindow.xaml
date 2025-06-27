@@ -6,10 +6,11 @@
         xmlns:vm="clr-namespace:Launcher.ViewModel"
         xmlns:controls="clr-namespace:Launcher.View.Components"
         xmlns:local="clr-namespace:Launcher.View.Windows"
+        xmlns:tb="http://www.hardcodet.net/taskbar"
         mc:Ignorable="d"
         AllowsTransparency="True"
         Title="MainWindow" Height="600" Width="1000" MinHeight="600" MinWidth="1000" MaxHeight="1200" MaxWidth="2000" 
-        WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize">
+        WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize" StateChanged="WindowStateChanged">
     
     <Window.DataContext>
         <vm:MainViewModel/>
@@ -21,10 +22,11 @@
 
     <Border Style="{StaticResource WindowBorderStyle}">
         <Grid>
+            <tb:TaskbarIcon Visibility="Visible" TrayLeftMouseDown="TaskbarIconTrayLeftMouseDown" ToolTipText="App Redmer Launcher" IconSource="/View/Resources/Image/Logo.png"/>
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>
-                    <RowDefinition/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0" MouseDown="TopBorder_MouseDown">
                     <controls:DashBoard/>

@@ -24,6 +24,23 @@
                     <Button Style="{StaticResource ButtonTopSliderBar}" Content="Мои игры" Command="{Binding openMyGamesPage}"/>
                     <Button Style="{StaticResource ButtonTopSliderBar}" Content="Настройки" Command="{Binding openSettingsPage}"/>
                     <Button Style="{StaticResource ButtonTopSliderBar}" Content="Наш дискорд" Command="{Binding openDiscord}"/>
+                    <Menu Height="25" VerticalAlignment="Center">
+                        <MenuItem>
+                            <MenuItem.Header>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="20"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Grid.Column="0" Width="20" Height="20" Source="{Binding SetIconUser, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+                                    <Label Grid.Column="1" Content="{Binding SetUserName, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+                                </Grid>
+                            </MenuItem.Header>
+                            <MenuItem Header="Открыть профиль" Command="{Binding openProfile}"/>
+                            <Separator/>
+                            <MenuItem Header="Выйти" Command="{Binding logout}"/>
+                        </MenuItem>
+                    </Menu>
                 </StackPanel>
             </Grid>
         

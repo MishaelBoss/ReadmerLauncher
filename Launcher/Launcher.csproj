@@ -10,8 +10,8 @@
     <ApplicationManifest>E:\Перенос\LauncherLes1\LauncherLes1\app.manifest</ApplicationManifest>
     <PackageIcon></PackageIcon>
     <ApplicationIcon>View\Resources\Image\Logo\LogoProject.ico</ApplicationIcon>
-    <FileVersion>1.0.1.4</FileVersion>
-    <AssemblyVersion>1.0.1.4</AssemblyVersion>
+    <FileVersion>1.0.1.5</FileVersion>
+    <AssemblyVersion>1.0.1.5</AssemblyVersion>
     <PackageReleaseNotes></PackageReleaseNotes>
     <RepositoryUrl>https://github.com/MishaelBoss/ReadmerLauncher</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
@@ -19,10 +19,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="View\Resources\Image\AddUserImage.png" />
     <None Remove="View\Resources\Image\CloseProject.png" />
     <None Remove="View\Resources\Image\closeproject_white.png" />
     <None Remove="View\Resources\Image\CollapseProject.png" />
     <None Remove="View\Resources\Image\collapseproject_white.png" />
+    <None Remove="View\Resources\Image\DefaultAvatar.png" />
     <None Remove="View\Resources\Image\Defender Rat.png" />
     <None Remove="View\Resources\Image\DefenderRat_background.png" />
     <None Remove="View\Resources\Image\Infomation.png" />
@@ -32,6 +34,7 @@
     <None Remove="View\Resources\Image\systeams\mac.png" />
     <None Remove="View\Resources\Image\systeams\windows.png" />
     <None Remove="View\Resources\Image\Warning.png" />
+    <None Remove="View\Resources\SplashScreen\SplashScreen.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -51,6 +54,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="View\Resources\Image\AddUserImage.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="View\Resources\Image\DefaultAvatar.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="View\Resources\Image\systeams\linux.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
@@ -69,15 +78,16 @@
   <ItemGroup>
     <PackageReference Include="CommonServiceLocator" Version="2.0.7" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
-    <PackageReference Include="GroupDocs.Conversion" Version="25.5.0" />
+    <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="2.0.1" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="6.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.5" />
-    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.5" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.6" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.6" />
     <PackageReference Include="MvvmCross" Version="9.3.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Newtonsoft.Json.Bson" Version="1.0.3" />
-    <PackageReference Include="System.Drawing.Common" Version="9.0.5" />
-    <PackageReference Include="System.Text.Json" Version="9.0.5" />
+    <PackageReference Include="Npgsql" Version="9.0.3" />
+    <PackageReference Include="System.Drawing.Common" Version="9.0.6" />
+    <PackageReference Include="System.Text.Json" Version="9.0.6" />
   </ItemGroup>
 
   <ItemGroup>
@@ -111,6 +121,12 @@
     <Resource Include="View\Resources\Image\Warning.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <SplashScreen Include="View\Resources\SplashScreen\SplashScreen.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </SplashScreen>
   </ItemGroup>
 
   <ItemGroup>

@@ -4,14 +4,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 
 namespace Launcher.View.Windows
 {
     public partial class MainWindow : Window
     {
         private Warning userControlWarning = new Warning();
-
-        private Authorization Authorization = new Authorization();
+        private WindowState prevState;
 
         private readonly IHost _host;
 
@@ -25,32 +25,25 @@ namespace Launcher.View.Windows
             }).Build();
 
             Task.Run(() => _host.Run());
+
+            //Window window = Window.GetWindow(this); 
         }
 
         private void Initialize() {
             InitializeFolderAndFile.Initialize();
 
+            Application.Current.MainWindow = this;
+
             if (!Internet.connect()) ErrorConnectInternet.Visibility = Visibility.Visible;
 
             Update.UpdateUI(BackgroundUIFunction, 0, 0, 5);
 
-            Authorization.Show();
-            this.Close();
+            DashBoard dashBoard = new DashBoard();
+            dashBoard.SetIconUser = new BitmapImage(new Uri("https://raw.githubusercontent.com/RedmerGameAndTechnologies/JsonLauncher/refs/heads/main/background/DefenderRat/DefenderRat_background.png"));
+            dashBoard.SetUserName = "dasd";
         }
 
         private void BackgroundUIFunction(object sender, EventArgs ea) {
-/*            if (!Internet.connect())
-            {
-                if (ErrorConnectInternet.isIgnoreErrorToConnectInternet)
-                {
-                    if (!GridMainFrame.Children.Contains(userControlWarning)) {
-                        GridMainFrame.Children.Add(userControlWarning);
-                        userControlWarning.StartWarningAnimation();
-                    }
-                }
-            }
-            else if (GridMainFrame.Children.Contains(userControlWarning)) GridMainFrame.Children.Remove(userControlWarning);*/
-
             Autoload.SetAutoload();
         }
 
@@ -60,7 +53,18 @@ namespace Launcher.View.Windows
                 DragMove();
         }
 
-        
+        private void WindowStateChanged(object sender, EventArgs e)
+        {
+            prevState = WindowState;
+        }
+
+        private void TaskbarIconTrayLeftMouseDown(object sender, RoutedEventArgs e)
+        {
+            if (WindowState == WindowState.Minimized) this.WindowState = WindowState.Normal;
+            WindowState = prevState;
+        }
+
+
 
         /*        protected override async void OnClosed(EventArgs e)
                 {

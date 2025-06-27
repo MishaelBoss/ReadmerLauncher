@@ -6,12 +6,12 @@ namespace Launcher.View.Resources.Script
 {
     class Files {
         public const string configSettingsFileName = "appsettings.xml";
-        public static readonly string LibraryfoldersJson = "libraryfolders.json";
+        public const string LibraryfoldersJson = "libraryfolders.json";
     }
 
     class Arguments
     {
-        public static readonly string urlJSONUpdateLauncher = "https://raw.githubusercontent.com/RedmerGameAndTechnologies/JsonLauncher/refs/heads/main/VersionLauncher.json";
+        public const string urlJSONUpdateLauncher = "https://raw.githubusercontent.com/RedmerGameAndTechnologies/JsonLauncher/refs/heads/main/VersionLauncher.json";
 
         #region Confirm Update
         public static string execPath = Process.GetCurrentProcess().MainModule.FileName;
@@ -24,19 +24,32 @@ namespace Launcher.View.Resources.Script
         public static string curverVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
         #endregion
 
+        #region XmlConfig
         public static bool Update_if_is_update { get; set; }
         public static bool Autoload { get; set; }
         public static bool Receive_notifications { get; set; }
         public static int Speed_download_update { get; set; }
         public static int Speed_download_game { get; set; }
+        #endregion
 
-
+        #region JsonUpdate
         public static string newVersion { get; set; }
         public static string fileDownloadLink { get; set; }
         public static string aboutVersion { get; set; }
         public static string aboutVersionLink { get; set; }
         public static string readver { get; set; }
         public static bool isEmergencyUpdate { get; set; }
+        #endregion
+
+        #region DB
+        private const string ip = "localhost";
+        private const string port = "5432";
+        private const string database = "readmer_launcher";
+        private const string userId = "postgres";
+        private const string password = "cr2032";
+
+        public const string connection = $"Server={ip};Port={port};Database={database}; User id = {userId};Password={password};";
+        #endregion
     }
 
     class Paths
@@ -54,35 +67,46 @@ namespace Launcher.View.Resources.Script
         {
             return $@".\ChacheDownloadGame_{name}.zip";
         }
-        public static readonly string appTemlPath = "tempDirectoryUnzip";
+        public const string appTemlPath = "tempDirectoryUnzip";
         #endregion
 
         #region Confirm Update
-        public static readonly string zipPathUpdate = @".\UpdateLaucnher.zip";
-        public static readonly string exeLauncherUpdate = @".\NewLauncher.exe";
-        public static readonly string exetraPath = @".\";
+        public const string zipPathUpdate = @".\UpdateLaucnher.zip";
+        public const string exeLauncherUpdate = @".\NewLauncher.exe";
+        public const string exetraPath = @".\";
         #endregion
 
         #region Settings
-        public static readonly string config = @".\config";
+        public  const string config = @".\config";
         #endregion
 
         #region WorkFolders
-        public static readonly string work = @".\apps";
-        public static readonly string download = @$".\{work}\downloading";
-        public static readonly string common = @$".\{work}\common";
-        public static readonly string saved = @$".\Saved";
-        public static readonly string crashes = @$".\{saved}\crashes";
-        public static readonly string log = @$".\{saved}\log";
-        public static readonly string readmer = @".\readmer";
-        public static readonly string games = @$".\{readmer}\games";
+        public const string work = @".\apps";
+        public const string download = @$".\{work}\downloading";
+        public const string common = @$".\{work}\common";
+        public const string saved = @$".\Saved";
+        public const string crashes = @$".\{saved}\crashes";
+        public const string log = @$".\{saved}\log";
+        public const string readmer = @".\readmer";
+        public const string games = @$".\{readmer}\games";
+        public const string appcache = @".\appcache";
+        public const string librarycache = @$".\{appcache}\librarycache";
+        public const string userdata = @".\userdata";
+        public const string avatarcache = @$".\{config}\avatarcache";
         #endregion
 
-        public static string destinationPath(string name) {
-            return Path.Combine(Paths.games, $"{name}.png");
+        public static string cookie(string username) {
+            return Path.Combine(userdata, username);
         }
-        public static string convertPath(string name) {
-            return Path.Combine(Paths.games, $"{name}.ico");
+
+        public static string appLibrarycache(string name)
+        {
+            return Path.Combine(librarycache, name);
+        }
+
+        public static string destinationPath(string directory, string name, string extension)
+        {
+            return Path.Combine(directory, $"{name}.{extension}");
         }
     }
 }

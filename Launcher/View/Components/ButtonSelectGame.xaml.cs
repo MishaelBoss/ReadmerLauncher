@@ -4,13 +4,13 @@ using System.Windows.Media.Imaging;
 
 namespace Launcher.View.Components
 {
-    public partial class CartGame : UserControl
+    public partial class ButtonSelectGame : UserControl
     {
         public static readonly DependencyProperty SetIconProperty =
-            DependencyProperty.Register("SetIcon", typeof(BitmapImage), typeof(CartGame), new PropertyMetadata(null));
+            DependencyProperty.Register("SetIcon", typeof(BitmapImage), typeof(ButtonSelectGame), new PropertyMetadata(null));
 
         public static readonly DependencyProperty SetNameProperty =
-            DependencyProperty.Register("SetName", typeof(string), typeof(CartGame), new PropertyMetadata(string.Empty));
+            DependencyProperty.Register("SetName", typeof(string), typeof(ButtonSelectGame), new PropertyMetadata(string.Empty));
 
         public BitmapImage SetIcon
         {
@@ -24,7 +24,7 @@ namespace Launcher.View.Components
             set => SetValue(SetNameProperty, value);
         }
 
-        public CartGame()
+        public ButtonSelectGame()
         {
             InitializeComponent();
         }

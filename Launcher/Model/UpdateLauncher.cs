@@ -1,4 +1,6 @@
-﻿namespace Launcher.Model
+﻿using Launcher.Model.Interface;
+
+namespace Launcher.Model
 {
     internal class UpdateLauncher : IUpdateLauncher
     {

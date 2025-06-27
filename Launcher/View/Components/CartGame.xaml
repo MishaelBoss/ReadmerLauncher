@@ -14,8 +14,8 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
-            <Image Name="Image" Grid.Row="0" Source="/View/Resources/Image/DefenderRat_background.png" Stretch="UniformToFill" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            <Label Name="Name" Grid.Row="1" Content="Defender Rat" Foreground="White"/>
+            <Image Name="Image" Grid.Row="0" Source="{Binding SetIcon, RelativeSource={RelativeSource AncestorType=UserControl}}" Stretch="UniformToFill" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Label Name="Name" Grid.Row="1" Content="{Binding SetName, RelativeSource={RelativeSource AncestorType=UserControl}}" Foreground="White"/>
         </Grid>
     </Button>
 </UserControl>

@@ -1,23 +1,22 @@
 ﻿using Launcher.View.Components;
 using Launcher.View.Resources.Script;
-using Launcher.View.Resources.Script.Cookie;
 using Launcher.View.Windows;
 using Npgsql;
 using System.IO;
+using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 
 namespace Launcher.View.Pages
 {
-    public partial class SelectUser : Page
+    public partial class SelectUserPage : Page
     {
         private List<ButtonSelectUser> btnGame = [];
         private List<string> userFolders = [];
         private List<string> folderNames = [];
 
-        public SelectUser()
+        public SelectUserPage()
         {
             InitializeComponent();
             Initialize();
@@ -26,7 +25,7 @@ namespace Launcher.View.Pages
         private void Initialize() {
             btnGame.Add(new ButtonSelectUser()
             {
-                Action = () => { Test(); },
+                Action = () => { OpenAuthorization(); },
                 SetIcon = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/AddUserImage.png")),
                 SetUserName = "Добавить пользователя"
             });
@@ -88,7 +87,7 @@ namespace Launcher.View.Pages
                                     {
                                         btnGame.Add(new ButtonSelectUser()
                                         {
-                                            Action = () => { InitializeEditableFields(username); },
+                                            Action = () => { CheckLoginCookie(dblogin); },
                                             SetIcon = new BitmapImage(new Uri(dbavatar)),
                                             SetUserName = dblogin
                                         });
@@ -96,7 +95,7 @@ namespace Launcher.View.Pages
                                     else {
                                         btnGame.Add(new ButtonSelectUser()
                                         {
-                                            Action = () => { InitializeEditableFields(username); },
+                                            Action = () => { CheckLoginCookie(dblogin); },
                                             SetIcon = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/DefaultAvatar.png")),
                                             SetUserName = dblogin
                                         });
@@ -124,17 +123,34 @@ namespace Launcher.View.Pages
             }
         }
 
-        private static void InitializeEditableFields(string username) {
-            CrateCookie.SaveLoginCookie(username, Guid.NewGuid().ToString(), DateTime.Now.AddDays(7));
+        private void CheckLoginCookie(string username) {
+            if (File.Exists(Path.Combine(Paths.cookie(username), "login.cookie")))
+            {
+                try
+                {
+                    var data = new
+                    {
+                        path = Paths.cookie(username)
+                    };
 
-            MainWindow mainWindow = new();
-            mainWindow.Show();
+                    File.WriteAllText(Path.Combine(Paths.userdata, "config.json"), JsonSerializer.Serialize(data));
 
-            Application.Current.MainWindow.Close();
+                    Window parentWindow = Window.GetWindow(this);
+                    if (parentWindow != null) parentWindow.Close();
+                }
+                catch (Exception ex)
+                {
+                    Loges.LoggingProcess(level: LogLevel.WARN, ex: ex);
+                }
+            }
+            else {
+                AuthorizationPage authorization = new();
+                AuthorizationWindow.navigationService.Navigate(authorization);
+            }
         }
 
-        private void Test() {
-            Authorization authorization = new();
+        private void OpenAuthorization() {
+            AuthorizationPage authorization = new();
             AuthorizationWindow.navigationService.Navigate(authorization);
         }
     }

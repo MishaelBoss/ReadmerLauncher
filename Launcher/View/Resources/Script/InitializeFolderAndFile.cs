@@ -12,15 +12,9 @@ namespace Launcher.View.Resources.Script
             if (!Directory.Exists(Paths.work)) Directory.CreateDirectory(Paths.work);
             if (!Directory.Exists(Paths.download)) Directory.CreateDirectory(Paths.download);
             if (!Directory.Exists(Paths.common)) Directory.CreateDirectory(Paths.common);
-            if (!Directory.Exists(Paths.saved)) Directory.CreateDirectory(Paths.saved);
-            if (!Directory.Exists(Paths.crashes)) Directory.CreateDirectory(Paths.crashes);
-            if (!Directory.Exists(Paths.log)) Directory.CreateDirectory(Paths.log);
-            if (!Directory.Exists(Paths.readmer)) Directory.CreateDirectory(Paths.readmer);
-            if (!Directory.Exists(Paths.games)) Directory.CreateDirectory(Paths.games);
-            if (!File.Exists(LibraryfoldersFilePath)) JsonConfidCreate.CreateLibraryFolders(LibraryfoldersFilePath);
-            if (!Directory.Exists(Paths.appcache)) Directory.CreateDirectory(Paths.appcache);
-            if (!Directory.Exists(Paths.librarycache)) Directory.CreateDirectory(Paths.librarycache);
             if (!Directory.Exists(Paths.userdata)) Directory.CreateDirectory(Paths.userdata);
+
+            if (!File.Exists(LibraryfoldersFilePath)) JsonConfidCreate.CreateLibraryFolders();
         }
     }
 }

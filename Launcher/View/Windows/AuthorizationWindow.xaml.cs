@@ -43,11 +43,11 @@ namespace Launcher.View.Windows
 
             if (isFolderUser)
             {
-                SelectUser selectUser = new();
+                SelectUserPage selectUser = new();
                 navigationService.Navigate(selectUser);
             }
             else {
-                Authorization authorization = new();
+                AuthorizationPage authorization = new();
                 navigationService.Navigate(authorization);
             }
         }

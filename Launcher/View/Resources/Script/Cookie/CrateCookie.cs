@@ -14,13 +14,6 @@ namespace Launcher.View.Resources.Script.Cookie
                 Expires = expires
             };
 
-/*            string userDataDir = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                Assembly.GetEntryAssembly().GetName().Name,
-                "userdata",
-                username
-            );*/
-
             string cookieFilePath = Path.Combine(Paths.cookie(username), "login.cookie");
             File.WriteAllText(cookieFilePath, JsonSerializer.Serialize(data));
         }

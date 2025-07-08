@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="50" d:DesignWidth="180">
 
-    <Button Template="{StaticResource ResourceKey=SlideMenuBtn}" Command="{Binding openGamesPage}" Background="Transparent" BorderBrush="Transparent">
+    <Button Template="{StaticResource ResourceKey=SlideMenuBtn}" Command="{Binding Command, RelativeSource={RelativeSource AncestorType=UserControl}}" Background="Transparent" BorderBrush="Transparent">
         <Grid Height="50" Width="180" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="40"/>

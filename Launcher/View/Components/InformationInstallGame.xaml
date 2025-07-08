@@ -44,10 +44,10 @@
                             <ColumnDefinition Width="100"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Image Grid.Column="0" Name="ImageGame" Source="/View/Resources/Image/DefenderRat_background.png" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <Label Grid.Column="1" Name="NameGame" Content="Defender Rat" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="10"/>
+                        <Image Grid.Column="0" Name="ImageGame" Source="" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Label Grid.Column="1" Name="NameGame" Content="" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="10"/>
                     </Grid>
-                    <Label Grid.Column="1" Name="SizeGame" Content="Размер игры" Foreground="White" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="20"/>
+                    <Label Grid.Column="1" Name="SizeGame" Content="" Foreground="White" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="20"/>
                 </Grid>
             </Grid>
             <Grid Grid.Row="1">

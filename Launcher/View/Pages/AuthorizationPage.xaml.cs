@@ -1,16 +1,16 @@
 ﻿using Launcher.View.Resources.Script;
 using Launcher.View.Resources.Script.Cookie;
-using Launcher.View.Resources.Script.Game;
 using Npgsql;
 using System.IO;
+using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace Launcher.View.Pages
 {
-    public partial class Authorization : Page
+    public partial class AuthorizationPage : Page
     {
-        public Authorization()
+        public AuthorizationPage()
         {
             InitializeComponent();
             Update.UpdateUI(BackgroundUIFunction, 0, 0, 1);
@@ -24,11 +24,6 @@ namespace Launcher.View.Pages
         private void NotAccount(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Пустышка", "Пустышка");
-        }
-
-        private void isRememberClicked(object sender, RoutedEventArgs e)
-        {
-            var isRemember = Remember.IsChecked ?? false;
         }
 
         private void LoginClick(object sender, RoutedEventArgs e)
@@ -60,28 +55,35 @@ namespace Launcher.View.Pages
                                     {
                                         string paths = Path.Combine(Paths.userdata, Username);
 
-                                        if (Directory.Exists(paths) && Directory.Exists(Paths.avatarcache))
+                                        if(!Directory.Exists(paths)) Directory.CreateDirectory(paths);
+                                        if(!Directory.Exists(Paths.avatarcache)) Directory.CreateDirectory(Paths.avatarcache);
+
+                                        try
                                         {
                                             Directory.CreateDirectory(Paths.avatarcache);
                                             CrateCookie.SaveLoginCookie(Username, Guid.NewGuid().ToString(), DateTime.Now.AddDays(7));
+
+                                            var data = new
+                                            {
+                                                path = Paths.cookie(Username)
+                                            };
+
+                                            File.WriteAllText(Path.Combine(Paths.userdata, "config.json"), JsonSerializer.Serialize(data));
                                         }
-                                        else
-                                        {
-                                            Directory.CreateDirectory(Paths.avatarcache);
-                                            Directory.CreateDirectory(paths);
-                                            CrateCookie.SaveLoginCookie(Username, Guid.NewGuid().ToString(), DateTime.Now.AddDays(7));
+                                        catch (Exception ex) {
+                                            Loges.LoggingProcess(level: LogLevel.WARN, ex: ex);
                                         }
 
                                         if (!string.IsNullOrEmpty(dbavatar) && Uri.IsWellFormedUriString(dbavatar, UriKind.Absolute))
                                         {
-                                            try
+      /*                                      try
                                             {
                                                 DownloadContent.Download(Paths.destinationPath(Paths.avatarcache, Username, "png"), dbavatar);
                                             }
                                             catch (Exception ex)
                                             {
                                                 Loges.LoggingProcess(LogLevel.INFO, ex: ex);
-                                            }
+                                            }*/
                                         }
 
                                         ErrorLoginOrPassword.Visibility = Visibility.Hidden;

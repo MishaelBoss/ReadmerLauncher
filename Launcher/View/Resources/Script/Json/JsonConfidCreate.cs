@@ -7,13 +7,13 @@ namespace Launcher.View.Resources.Script.Json
 {
     public class JsonConfidCreate
     {
-        public static void CreateLibraryFolders(string path) {
+        public static void CreateLibraryFolders() {
             var defaultData = new
             {
                 apps = new JObject()
             };
 
-            if(File.Exists(Paths.work)) File.WriteAllText(path, JsonConvert.SerializeObject(defaultData, Formatting.Indented));
+            if(Directory.Exists(Paths.work)) File.WriteAllText(Path.Combine(Paths.work, Files.LibraryfoldersJson), JsonConvert.SerializeObject(defaultData, Formatting.Indented));
             else Directory.CreateDirectory(Paths.work);
         }
 
@@ -27,7 +27,9 @@ namespace Launcher.View.Resources.Script.Json
                 var manifestData = new
                 {
                     name = nameGame,
-                    install_dir = gamePath
+                    install_dir = gamePath,
+                    icon = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Paths.librarycache, nameGame, $"{nameGame}_Icon.png"),
+                    background = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Paths.librarycache, nameGame, $"{nameGame}_Background.png")
                 };
                 File.WriteAllText(manifestPath, JsonConvert.SerializeObject(manifestData, Formatting.Indented));
 

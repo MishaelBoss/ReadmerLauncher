@@ -1,16 +1,17 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 
 namespace Launcher.View.Pages
 {
-    public partial class InformationGame : Page
+    public partial class InformationGamePage : Page
     {
         private string _name { get; set; }
         private string _description { get; set; }
         private string _icon { get; set; }
         private string _background { get; set; }
 
-        public InformationGame()
+        public InformationGamePage()
         {
             InitializeComponent();
             LoadData();

@@ -25,22 +25,14 @@ namespace Launcher.View.Windows
             }).Build();
 
             Task.Run(() => _host.Run());
-
-            //Window window = Window.GetWindow(this); 
         }
 
         private void Initialize() {
-            InitializeFolderAndFile.Initialize();
-
             Application.Current.MainWindow = this;
 
             if (!Internet.connect()) ErrorConnectInternet.Visibility = Visibility.Visible;
 
             Update.UpdateUI(BackgroundUIFunction, 0, 0, 5);
-
-            DashBoard dashBoard = new DashBoard();
-            dashBoard.SetIconUser = new BitmapImage(new Uri("https://raw.githubusercontent.com/RedmerGameAndTechnologies/JsonLauncher/refs/heads/main/background/DefenderRat/DefenderRat_background.png"));
-            dashBoard.SetUserName = "dasd";
         }
 
         private void BackgroundUIFunction(object sender, EventArgs ea) {

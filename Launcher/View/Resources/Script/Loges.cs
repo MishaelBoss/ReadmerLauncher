@@ -36,15 +36,9 @@ namespace Launcher.View.Resources.Script
 
         private static void EnsureLogDirectory()
         {
-            if (!Directory.Exists(Paths.log))
-            {
-                Directory.CreateDirectory(Paths.log);
-            }
-
-            if (!Directory.Exists(Paths.crashes))
-            {
-                Directory.CreateDirectory(Paths.crashes);
-            }
+            if (!Directory.Exists(Paths.saved)) Directory.CreateDirectory(Paths.saved);
+            if (!Directory.Exists(Paths.log)) Directory.CreateDirectory(Paths.log);
+            if (!Directory.Exists(Paths.crashes)) Directory.CreateDirectory(Paths.crashes);
         }
 
         private static bool ShouldCreateNewLog(string todayDate)

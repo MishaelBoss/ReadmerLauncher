@@ -8,7 +8,7 @@ namespace Launcher.ViewModel
 {
     public class HomeViewModel : MvxViewModel
     {
-        private Page _informationGame = new InformationGame();
+        private Page _informationGame = new InformationGamePage();
 
         private Page _CurPage;
         public Page ContentPage

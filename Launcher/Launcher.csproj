@@ -10,8 +10,8 @@
     <ApplicationManifest>E:\Перенос\LauncherLes1\LauncherLes1\app.manifest</ApplicationManifest>
     <PackageIcon></PackageIcon>
     <ApplicationIcon>View\Resources\Image\Logo\LogoProject.ico</ApplicationIcon>
-    <FileVersion>1.0.1.5</FileVersion>
-    <AssemblyVersion>1.0.1.5</AssemblyVersion>
+    <FileVersion>1.0.2.5</FileVersion>
+    <AssemblyVersion>1.0.2.5</AssemblyVersion>
     <PackageReleaseNotes></PackageReleaseNotes>
     <RepositoryUrl>https://github.com/MishaelBoss/ReadmerLauncher</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
@@ -27,6 +27,8 @@
     <None Remove="View\Resources\Image\DefaultAvatar.png" />
     <None Remove="View\Resources\Image\Defender Rat.png" />
     <None Remove="View\Resources\Image\DefenderRat_background.png" />
+    <None Remove="View\Resources\Image\DownloadDarkImage.png" />
+    <None Remove="View\Resources\Image\DownloadWhiteImage.png" />
     <None Remove="View\Resources\Image\Infomation.png" />
     <None Remove="View\Resources\Image\Logo.png" />
     <None Remove="View\Resources\Image\Sad_smiley.jpg" />
@@ -58,6 +60,12 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="View\Resources\Image\DefaultAvatar.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="View\Resources\Image\DownloadDarkImage.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="View\Resources\Image\DownloadWhiteImage.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="View\Resources\Image\systeams\linux.png">

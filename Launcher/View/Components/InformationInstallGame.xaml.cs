@@ -1,6 +1,7 @@
+using Launcher.View.Resources.Script;
 using Launcher.View.Resources.Script.Json;
-﻿using Launcher.View.Resources.Script;
 using Microsoft.Win32;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -74,11 +75,26 @@ namespace Launcher.View.Components
         {
             if (pathInstallation != null)
             {
-                JsonConfidCreate.Create(SetName, pathInstallation);
-                if (isDesktop) CreateIcon.CreateShortcut(ShortcutLocation.DESKTOP, SetName);
-                else if(isStartMenu) CreateIcon.CreateShortcut(ShortcutLocation.START_MENU, SetName);
-                else if (isDesktop && isStartMenu) CreateIcon.CreateShortcut(ShortcutLocation.All, SetName);
-                Visibility = Visibility.Collapsed;
+                string LibraryfoldersFilePath = Path.Combine(Paths.work, Files.LibraryfoldersJson);
+
+                if (File.Exists(LibraryfoldersFilePath))
+                {
+                    try {
+
+                        JsonConfidCreate.Create(SetName, pathInstallation);
+                        if (isDesktop) CreateIcon.CreateShortcut(ShortcutLocation.DESKTOP, SetName);
+                        else if (isStartMenu) CreateIcon.CreateShortcut(ShortcutLocation.START_MENU, SetName);
+                        else if (isDesktop && isStartMenu) CreateIcon.CreateShortcut(ShortcutLocation.All, SetName);
+                        Visibility = Visibility.Collapsed;
+                    }
+                    catch (Exception ex) {
+                        Loges.LoggingProcess(level: LogLevel.WARN, ex: ex);
+                    }
+                }
+                else {
+                    JsonConfidCreate.CreateLibraryFolders();
+                    return;
+                }
             }
         }
 

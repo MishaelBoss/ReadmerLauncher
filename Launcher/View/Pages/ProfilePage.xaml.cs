@@ -1,25 +1,48 @@
-﻿using Launcher.View.Resources.Script;
+﻿using Launcher.Model;
+using Launcher.View.Resources.Script;
 using Npgsql;
+using System.IO;
+using System.Text.Json;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 
 namespace Launcher.View.Pages
 {
-    public partial class Profile : Page
+    public partial class ProfilePage : Page
     {
         private string _profileUserAvatar;
         private string _profileUserName;
         private string _profileUserLocation;
 
-        public Profile()
+        public ProfilePage()
         {
             InitializeComponent();
             Initialize();
         }
 
         private void Initialize() {
-            if (Internet.connect()) {
-                LoadData("test2");
+            if (Internet.connect())
+            {
+                string pathConfig = Path.Combine(Paths.userdata, "config.json");
+
+                if (File.Exists(pathConfig))
+                {
+                    var jsonConfig = File.ReadAllText(pathConfig);
+                    var dataConfig = JsonSerializer.Deserialize<User>(jsonConfig);
+
+                    string cookieFilePath = Path.Combine(dataConfig?.path, "login.cookie");
+
+                    var jsonCookie = File.ReadAllText(cookieFilePath);
+                    var dataCookie = JsonSerializer.Deserialize<CookieServer>(jsonCookie);
+
+                    if (File.Exists(Path.Combine(dataConfig?.path, "login.cookie")))
+                    {
+                        LoadData(dataCookie.Username);
+                    }
+                }
+            }
+            else {
+                Loges.LoggingProcess(level: LogLevel.INFO, "Подключитесь к интернету");
             }
 
             InitializeParametrs();

@@ -16,11 +16,7 @@ namespace Launcher.View.Resources.Script
             {
                 while (!stoppingToken.IsCancellationRequested)
                 {
-                    _ = Application.Current.Dispatcher.Invoke(async () =>
-                    {
-                        await CheckForUpdatesAsync(stoppingToken);
-                    });
-
+                    await CheckForUpdatesAsync(stoppingToken);
                     await Task.Delay(TimeSpan.FromMinutes(5), stoppingToken);
                 }
             }
@@ -117,11 +113,11 @@ namespace Launcher.View.Resources.Script
                     }
                 }
 
-                var _launcherWindow = new DownloadUpdateLauncherWindow();
-
-                if (Arguments.Update_if_is_update) {
+                if (Arguments.Update_if_is_update)
+                {
                     await Application.Current.Dispatcher.InvokeAsync(() =>
                     {
+                        _launcherWindow = new DownloadUpdateLauncherWindow();
                         _launcherWindow.Show();
                     }, DispatcherPriority.Normal, token);
                 }
@@ -130,6 +126,7 @@ namespace Launcher.View.Resources.Script
                 {
                     await Application.Current.Dispatcher.InvokeAsync(() =>
                     {
+                        _launcherWindow = new DownloadUpdateLauncherWindow();
                         _launcherWindow.Show();
                     }, DispatcherPriority.Normal, token);
                 }

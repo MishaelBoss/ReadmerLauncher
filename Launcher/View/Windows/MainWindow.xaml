@@ -27,13 +27,17 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="30"/>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0" MouseDown="TopBorder_MouseDown">
                     <controls:DashBoard/>
                 </Grid>
                 <Grid Grid.Row="1" Name="GridMainFrame">
-                    <Frame Content="{Binding ContentPage}" NavigationUIVisibility="Hidden"/>
+                    <Frame Name="MainFrame" Content="{Binding ContentPage}" NavigationUIVisibility="Hidden"/>
                     <controls:Warning x:Name="Warning" Visibility="Hidden"/>
+                </Grid>
+                <Grid Grid.Row="2" MouseDown="TopBorder_MouseDown">
+                    <controls:DownloadBar x:Name="DownloadBar" Visibility="Visible"/>
                 </Grid>
             </Grid>
             <Grid Name="Main">

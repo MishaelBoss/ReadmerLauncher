@@ -1,6 +1,7 @@
-﻿using Launcher.View.Resources.Script;
-using Launcher.View.Resources.Script.Cookie;
+﻿using Launcher.Model;
+using Launcher.View.Resources.Script;
 using System.IO;
+using System.Text.Json;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
@@ -17,7 +18,8 @@ namespace Launcher.View.Windows
         public SplashScreenWindow()
         {
             InitializeComponent();
-       
+            InitializeFolderAndFile.Initialize();
+
             Version.Content = $"Версия: {Arguments.curverVersion}";
 
             timer.Interval = TimeSpan.FromSeconds(2);
@@ -37,8 +39,33 @@ namespace Launcher.View.Windows
             foreach (string folder in Directory.GetDirectories(Paths.userdata, "*", SearchOption.AllDirectories))
             {
                 string username = Path.GetFileName(folder);
+                string pathConfig = Path.Combine(Paths.userdata, "config.json");
 
-                if (Directory.Exists(folder) && File.Exists(Path.Combine(Paths.cookie(username), "login.cookie")) && ReaderCookie.IsUserLoggedIn(username))
+                var data2 = new
+                {
+                    path = ""
+                };
+
+                if (!File.Exists(pathConfig)) File.WriteAllText(pathConfig, JsonSerializer.Serialize(data2));
+
+                if (File.Exists(pathConfig)) {
+                    var json = File.ReadAllText(pathConfig);
+                    var data = JsonSerializer.Deserialize<User>(json);
+
+                    if (File.Exists(Path.Combine(data?.path, "login.cookie")))
+                    {
+                        isAnyUserLoggedIn = true;
+                        loggedInUsername = username;
+                        break;
+                    }
+                    else
+                    {
+                        isAnyUserLoggedIn = false;
+                        break;
+                    }
+                }
+
+/*                if (Directory.Exists(folder) && File.Exists(Path.Combine(Paths.cookie(username), "login.cookie")) && ReaderCookie.IsUserLoggedIn(username))
                 {
                     isAnyUserLoggedIn = true;
                     loggedInUsername = username;
@@ -48,7 +75,7 @@ namespace Launcher.View.Windows
                 {
                     isAnyUserLoggedIn = false;
                     break;
-                }
+                }*/
             }
 
             if (isAnyUserLoggedIn)

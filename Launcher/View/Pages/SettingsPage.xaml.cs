@@ -7,11 +7,11 @@ using System.Windows.Controls;
 
 namespace Launcher.View.Pages
 {
-    public partial class Settings : Page
+    public partial class SettingsPage : Page
     {
         private DownloadUpdateLauncherWindow _updateLauncherWindow;
 
-        public Settings()
+        public SettingsPage()
         {
             InitializeComponent();
             InitializeSettings();

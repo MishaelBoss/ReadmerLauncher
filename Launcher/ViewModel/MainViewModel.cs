@@ -12,11 +12,11 @@ namespace Launcher.ViewModel
 {
     public class MainViewModel : MvxViewModel
     {
-        private Page _homePage = new Home();
-        private Page _myGames = new MyLibrary();
-        private Page _pageGames = new Game();
-        private Page _settings = new Settings();
-        private Page _profile = new Profile();
+        private Page _homePage = new HomePage();
+        private Page _myLibaryPage = new MyLibraryPage();
+        private Page _settingsPage = new SettingsPage();
+        private Page _profilePage = new ProfilePage();
+        private Page _downloadListPage = new DownloadListPage();
 
         private Page _DashBoard;
         public Page DashBoard
@@ -49,21 +49,14 @@ namespace Launcher.ViewModel
         {
             get
             {
-                return new RelayCommand(() => ContentPage = _myGames);
-            }
-        }
-        public ICommand openGamesPage
-        {
-            get
-            {
-                return new RelayCommand(() => ContentPage = _pageGames);
+                return new RelayCommand(() => ContentPage = _myLibaryPage);
             }
         }
         public ICommand openSettingsPage
         {
             get
             {
-                return new RelayCommand(() => ContentPage = _settings);
+                return new RelayCommand(() => ContentPage = _settingsPage);
             }
         }
         public ICommand openDiscord
@@ -77,7 +70,14 @@ namespace Launcher.ViewModel
         {
             get
             {
-                return new RelayCommand(() => ContentPage = _profile);
+                return new RelayCommand(() => ContentPage = _profilePage);
+            }
+        }
+        public ICommand openListDownload
+        {
+            get
+            {
+                return new RelayCommand(() => ContentPage = _downloadListPage);
             }
         }
         public ICommand logout

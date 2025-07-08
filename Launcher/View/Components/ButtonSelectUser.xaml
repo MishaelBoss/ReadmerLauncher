@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Launcher.View.Components"
              mc:Ignorable="d" 
              d:DesignHeight="50" d:DesignWidth="200">
-    <Grid Background="#826DED" MouseLeftButtonDown="Click">
+    <Grid Background="#826DED" MouseLeftButtonDown="Click" Margin="0,5,0,5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50"/>
             <ColumnDefinition Width="*"/>

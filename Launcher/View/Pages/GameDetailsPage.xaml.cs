@@ -15,6 +15,7 @@ namespace Launcher.View.Pages
 {
     public partial class GameDetailsPage : Page
     {
+        private double _id;
         private string _name;
         private string _version;
         private string _icon;
@@ -65,7 +66,7 @@ namespace Launcher.View.Pages
             {
                 try
                 {
-                    string requestGame = "SELECT background_image, icon_image FROM public.game WHERE title = @namegame";
+                    string requestGame = "SELECT id, background_image, icon_image FROM public.game WHERE title = @namegame";
 
                     using (var conn = new NpgsqlConnection(Arguments.connection))
                     {
@@ -78,9 +79,11 @@ namespace Launcher.View.Pages
                             {
                                 while (reader.Read())
                                 {
-                                    string background_image = reader.GetString(0);
-                                    string icon_image = reader.GetString(1);
+                                    double id = reader.GetDouble(0);
+                                    string background_image = reader.GetString(1);
+                                    string icon_image = reader.GetString(2);
 
+                                    _id = id;
                                     _background = background_image;
                                     _icon = icon_image;
 
@@ -212,6 +215,7 @@ namespace Launcher.View.Pages
                 try
                 {
                     var installWindow = InformationInstallGame.Instance;
+                    installWindow.id = _id;
                     installWindow.SetName = _name;
                     installWindow.SetIcon = new BitmapImage(new Uri(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Paths.librarycache, _name, $"{_name}_Background.png"), UriKind.Absolute));
                     installWindow.SetSize = "1323 MB";

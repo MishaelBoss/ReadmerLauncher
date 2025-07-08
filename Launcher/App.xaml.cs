@@ -8,6 +8,7 @@ namespace Launcher
     {
         protected override void OnStartup(StartupEventArgs e) {
             base.OnStartup(e);
+            UserSession.Initialize();
 
             AppDomain.CurrentDomain.UnhandledException += Loges.ExceptionEventApp;
             DispatcherUnhandledException += AppDispatcherUnhandledException;

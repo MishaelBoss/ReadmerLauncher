@@ -5,6 +5,9 @@ namespace Launcher.Model
 {
     public class CookieServer : ICookie
     {
+        [JsonProperty("id")]
+        public double id { get; set; }
+
         [JsonProperty("Username")]
         public string Username { get; set; }
 

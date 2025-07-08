@@ -35,7 +35,7 @@ namespace Launcher.View.Pages
             {
                 try
                 {
-                    string query = "SELECT password, avatar FROM public.\"user\" WHERE login = @username";
+                    string query = "SELECT id, password, avatar FROM public.\"user\" WHERE login = @username";
 
                     using (var connection = new NpgsqlConnection(Arguments.connection))
                     {
@@ -48,8 +48,9 @@ namespace Launcher.View.Pages
                             {
                                 if (reader.Read())
                                 {
-                                    string dbpassword = reader.GetString(0);
-                                    string dbavatar = reader.IsDBNull(1) ? null : reader.GetString(1);
+                                    double dbid = reader.GetFieldValue<double>(0);
+                                    string dbpassword = reader.GetString(1);
+                                    string dbavatar = reader.IsDBNull(2) ? null : reader.GetString(1);
 
                                     if (dbpassword == Password)
                                     {
@@ -61,7 +62,7 @@ namespace Launcher.View.Pages
                                         try
                                         {
                                             Directory.CreateDirectory(Paths.avatarcache);
-                                            CrateCookie.SaveLoginCookie(Username, Guid.NewGuid().ToString(), DateTime.Now.AddDays(7));
+                                            CrateCookie.SaveLoginCookie(dbid, Username, Guid.NewGuid().ToString(), DateTime.Now.AddDays(7));
 
                                             var data = new
                                             {

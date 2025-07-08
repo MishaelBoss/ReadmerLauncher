@@ -10,8 +10,8 @@
     <ApplicationManifest>E:\Перенос\LauncherLes1\LauncherLes1\app.manifest</ApplicationManifest>
     <PackageIcon></PackageIcon>
     <ApplicationIcon>View\Resources\Image\Logo\LogoProject.ico</ApplicationIcon>
-    <FileVersion>1.0.2.5</FileVersion>
-    <AssemblyVersion>1.0.2.5</AssemblyVersion>
+    <FileVersion>1.0.2.6</FileVersion>
+    <AssemblyVersion>1.0.2.6</AssemblyVersion>
     <PackageReleaseNotes></PackageReleaseNotes>
     <RepositoryUrl>https://github.com/MishaelBoss/ReadmerLauncher</RepositoryUrl>
     <RepositoryType>git</RepositoryType>

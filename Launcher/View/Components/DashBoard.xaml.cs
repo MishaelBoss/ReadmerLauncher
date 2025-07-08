@@ -1,6 +1,11 @@
-﻿using System.Windows;
+﻿using Launcher.Model;
+using Launcher.View.Resources.Script;
+using System.IO;
+using System.Text.Json;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Launcher.View.Components
 {
@@ -27,6 +32,9 @@ namespace Launcher.View.Components
         public DashBoard()
         {
             InitializeComponent();
+
+            SetUserName = UserSession.CurrentUser.Username;
+            SetIconUser = new BitmapImage(new Uri(UserSession.CurrentUser.avatar));
         }
 
         private void Close(object sender, RoutedEventArgs e)

@@ -1,5 +1,6 @@
 ﻿using Launcher.Model;
 using Launcher.View.Resources.Script;
+using Launcher.View.Resources.Script.Cookie;
 using System.IO;
 using System.Text.Json;
 using System.Windows;
@@ -46,13 +47,14 @@ namespace Launcher.View.Windows
                     path = ""
                 };
 
+                if (!Directory.Exists(folder)) Directory.CreateDirectory(folder);
                 if (!File.Exists(pathConfig)) File.WriteAllText(pathConfig, JsonSerializer.Serialize(data2));
 
                 if (File.Exists(pathConfig)) {
                     var json = File.ReadAllText(pathConfig);
-                    var data = JsonSerializer.Deserialize<User>(json);
+                    var data = JsonSerializer.Deserialize<Config>(json);
 
-                    if (File.Exists(Path.Combine(data?.path, "login.cookie")))
+                    if (Directory.Exists(folder) && File.Exists(Path.Combine(data?.path, "login.cookie")) && ReaderCookie.IsUserLoggedIn(username))
                     {
                         isAnyUserLoggedIn = true;
                         loggedInUsername = username;

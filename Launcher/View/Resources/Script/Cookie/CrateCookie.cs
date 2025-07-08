@@ -5,10 +5,11 @@ namespace Launcher.View.Resources.Script.Cookie
 {
     public static class CrateCookie
     {
-        public static void SaveLoginCookie(string username, string token, DateTime expires)
+        public static void SaveLoginCookie(double id, string username, string token, DateTime expires)
         {
             var data = new
             {
+                id = id,
                 Username = username,
                 Token = token,
                 Expires = expires

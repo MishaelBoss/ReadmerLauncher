@@ -14,6 +14,7 @@ namespace Launcher.View.Pages
 {
     public partial class MyLibraryPage : Page
     {
+        List<double> gameId;
         List<Game> gamesList;
         List<ButtonSelectGame> btnGame;
 
@@ -21,7 +22,7 @@ namespace Launcher.View.Pages
         {
             InitializeComponent();
             CheckInstallGame();
-            if (Internet.connect()) ConectToBD(4);
+            if (Internet.connect()) ConectToBD(UserSession.CurrentUser.id);
             else Loges.LoggingProcess(LogLevel.INFO, "Подключитесь к интернет");
         }
 
@@ -32,6 +33,7 @@ namespace Launcher.View.Pages
             {
                 try
                 {
+                    gameId = [];
                     btnGame = [];
                     gamesList = [];
 
@@ -45,15 +47,21 @@ namespace Launcher.View.Pages
                         if (File.Exists(manifestPath))
                         {
                             var manifest = JObject.Parse(File.ReadAllText(manifestPath));
+                            double _id = manifest["id"] != null ? Convert.ToDouble(manifest["id"]) : 0.0;
                             string _name = manifest["name"]?.ToString();
-                            string icon = manifest["icon"]?.ToString();
-                            string background = manifest["background"]?.ToString();
+                            string _icon = manifest["icon"]?.ToString();
+                            string _background = manifest["background"]?.ToString();
+
+                            if (gameId.Contains(_id)) continue;
+
+                            gameId.Add(_id);
 
                             var game = new Game()
                             {
+                                _id = _id,
                                 _name = _name,
-                                _icon = icon,
-                                _background = background
+                                _icon = _icon,
+                                _background = _background
                             };
 
                             gamesList.Add(game);
@@ -146,7 +154,7 @@ namespace Launcher.View.Pages
             }
         }
 
-        private void ConectToBD(decimal Id) {
+        private void ConectToBD(double idUser) {
             try {
                 btnGame = [];
                 gamesList = [];
@@ -159,12 +167,16 @@ namespace Launcher.View.Pages
                     conn.Open();
                     using (var command = new NpgsqlCommand(requestUser, conn))
                     {
-                        command.Parameters.AddWithValue("@Id", Id);
+                        command.Parameters.AddWithValue("@Id", idUser);
                         using (var reader = command.ExecuteReader())
                         {
                             if (reader.Read())
                             {
-                                decimal game_id = reader.GetFieldValue<decimal>(1);
+                                double game_id = reader.GetFieldValue<double>(1);
+
+                                if (gameId.Contains(game_id)) return;
+
+                                gameId.Add((double)game_id);
 
                                 using (var conn2 = new NpgsqlConnection(Arguments.connection))
                                 {

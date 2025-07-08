@@ -17,7 +17,7 @@ namespace Launcher.View.Resources.Script.Json
             else Directory.CreateDirectory(Paths.work);
         }
 
-        public static void Create(string nameGame, string gamePath) {
+        public static void Create(double id ,string nameGame, string gamePath) {
             string LibraryfoldersFilePath = Path.Combine(Paths.work, Files.LibraryfoldersJson);
             string manifestFileName = $"appmanifest_{nameGame}.json";
             string manifestPath = Path.Combine(Paths.work, manifestFileName);
@@ -26,6 +26,7 @@ namespace Launcher.View.Resources.Script.Json
             {
                 var manifestData = new
                 {
+                    id = id,
                     name = nameGame,
                     install_dir = gamePath,
                     icon = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Paths.librarycache, nameGame, $"{nameGame}_Icon.png"),

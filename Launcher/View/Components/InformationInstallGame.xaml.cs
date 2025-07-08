@@ -12,6 +12,7 @@ namespace Launcher.View.Components
     {
         public static InformationInstallGame Instance { get; private set; }
 
+        public double id { get; set; }
         private string pathInstallation { get; set; }
         private bool isDesktop { get; set; }
         private bool isStartMenu { get; set; }
@@ -77,23 +78,19 @@ namespace Launcher.View.Components
             {
                 string LibraryfoldersFilePath = Path.Combine(Paths.work, Files.LibraryfoldersJson);
 
-                if (File.Exists(LibraryfoldersFilePath))
-                {
-                    try {
+                if(!File.Exists(LibraryfoldersFilePath)) JsonConfidCreate.CreateLibraryFolders();
 
-                        JsonConfidCreate.Create(SetName, pathInstallation);
-                        if (isDesktop) CreateIcon.CreateShortcut(ShortcutLocation.DESKTOP, SetName);
-                        else if (isStartMenu) CreateIcon.CreateShortcut(ShortcutLocation.START_MENU, SetName);
-                        else if (isDesktop && isStartMenu) CreateIcon.CreateShortcut(ShortcutLocation.All, SetName);
-                        Visibility = Visibility.Collapsed;
-                    }
-                    catch (Exception ex) {
-                        Loges.LoggingProcess(level: LogLevel.WARN, ex: ex);
-                    }
+                try
+                {
+                    JsonConfidCreate.Create(id,SetName, pathInstallation);
+                    if (isDesktop) CreateIcon.CreateShortcut(ShortcutLocation.DESKTOP, SetName);
+                    else if (isStartMenu) CreateIcon.CreateShortcut(ShortcutLocation.START_MENU, SetName);
+                    else if (isDesktop && isStartMenu) CreateIcon.CreateShortcut(ShortcutLocation.All, SetName);
+                    Visibility = Visibility.Collapsed;
                 }
-                else {
-                    JsonConfidCreate.CreateLibraryFolders();
-                    return;
+                catch (Exception ex)
+                {
+                    Loges.LoggingProcess(level: LogLevel.WARN, ex: ex);
                 }
             }
         }

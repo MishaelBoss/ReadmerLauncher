@@ -4,13 +4,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media.Imaging;
 
 namespace Launcher.View.Windows
 {
     public partial class MainWindow : Window
     {
-        private Warning userControlWarning = new Warning();
         private WindowState prevState;
 
         private readonly IHost _host;
@@ -55,7 +53,6 @@ namespace Launcher.View.Windows
             if (WindowState == WindowState.Minimized) this.WindowState = WindowState.Normal;
             WindowState = prevState;
         }
-
 
 
         /*        protected override async void OnClosed(EventArgs e)

@@ -1,11 +1,7 @@
-﻿using Launcher.Model;
-using Launcher.View.Resources.Script;
-using System.IO;
-using System.Text.Json;
+﻿using Launcher.View.Resources.Script;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Launcher.View.Components
 {

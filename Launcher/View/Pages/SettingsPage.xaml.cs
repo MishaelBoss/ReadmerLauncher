@@ -1,4 +1,6 @@
 ﻿using Launcher.View.Resources.Script;
+using Launcher.View.Resources.Script.Json;
+using Launcher.View.Resources.Script.Xml;
 using Launcher.View.Windows;
 using System.Diagnostics;
 using System.IO;
@@ -30,8 +32,8 @@ namespace Launcher.View.Pages
             try
             {
                 var configPath = Path.Combine(Paths.config, Files.configSettingsFileName);
-                if (!File.Exists(configPath)) XmlConfigCreate.Create();
-                else XmlConfigReader.Load();
+                if (!File.Exists(configPath)) ManagerSettingsXML.Create();
+                else ManagerSettingsXML.Load();
 
                 CheckBox.IsChecked = Arguments.Update_if_is_update;
                 Autoload.IsChecked = Arguments.Autoload;
@@ -100,38 +102,38 @@ namespace Launcher.View.Pages
 
         private void CheckBoxChecked(object sender, RoutedEventArgs e)
         {
-            XmlConfigSave.Change("update_if_is_update", true);
+            ManagerSettingsXML.Change("update_if_is_update", true);
             Arguments.Update_if_is_update = true;
         }
 
 
         private void CheckBoxUnchecked(object sender, RoutedEventArgs e)
         {
-            XmlConfigSave.Change("update_if_is_update", false);
+            ManagerSettingsXML.Change("update_if_is_update", false);
             Arguments.Update_if_is_update = false;
         }
 
         private void AutoLoadingClick(object sender, RoutedEventArgs e)
         {
-            XmlConfigSave.Change("autoload", true);
+            ManagerSettingsXML.Change("autoload", true);
             Arguments.Autoload = true;
         }
 
         private void AutoLoadingUnchecked(object sender, RoutedEventArgs e)
         {
-            XmlConfigSave.Change("autoload", false);
+            ManagerSettingsXML.Change("autoload", false);
             Arguments.Autoload = false;
         }
 
         private void ReceiveNotificationsClick(object sender, RoutedEventArgs e)
         {
-            XmlConfigSave.Change("receive_notifications", true);
+            ManagerSettingsXML.Change("receive_notifications", true);
             Arguments.Receive_notifications = true;
         }
 
         private void ReceiveNotificationsUnchecked(object sender, RoutedEventArgs e)
         {
-            XmlConfigSave.Change("receive_notifications", false);
+            ManagerSettingsXML.Change("receive_notifications", false);
             Arguments.Receive_notifications = false;
         }
 
@@ -199,34 +201,34 @@ namespace Launcher.View.Pages
             switch (ComboBoxChooseSpeedDownloadUpdate.SelectedIndex)
             {
                 case 1:
-                    XmlConfigSave.Change("speed/update", 999999);
+                    ManagerSettingsXML.Change("speed/update", 999999);
                     break;
                 case 2:
-                    XmlConfigSave.Change("speed/update", 128000);
+                    ManagerSettingsXML.Change("speed/update", 128000);
                     break;
                 case 3:
-                    XmlConfigSave.Change("speed/update", 256000);
+                    ManagerSettingsXML.Change("speed/update", 256000);
                     break;
                 case 4:
-                    XmlConfigSave.Change("speed/update", 512000);
+                    ManagerSettingsXML.Change("speed/update", 512000);
                     break;
                 case 5:
-                    XmlConfigSave.Change("speed/update", 1000000);
+                    ManagerSettingsXML.Change("speed/update", 1000000);
                     break;
                 case 6:
-                    XmlConfigSave.Change("speed/update", 2000000);
+                    ManagerSettingsXML.Change("speed/update", 2000000);
                     break;
                 case 7:
-                    XmlConfigSave.Change("speed/update", 3000000);
+                    ManagerSettingsXML.Change("speed/update", 3000000);
                     break;
                 case 8:
-                    XmlConfigSave.Change("speed/update", 5000000);
+                    ManagerSettingsXML.Change("speed/update", 5000000);
                     break;
                 case 9:
-                    XmlConfigSave.Change("speed/update", 10000000);
+                    ManagerSettingsXML.Change("speed/update", 10000000);
                     break;
                 case 10:
-                    XmlConfigSave.Change("speed/update", 25000000);
+                    ManagerSettingsXML.Change("speed/update", 25000000);
                     break;
             }
         }
@@ -249,34 +251,34 @@ namespace Launcher.View.Pages
             switch (ComboBoxChooseSpeedDownloadGame.SelectedIndex)
             {
                 case 1:
-                    XmlConfigSave.Change("speed/game", 999999);
+                    ManagerSettingsXML.Change("speed/game", 999999);
                     break;
                 case 2:
-                    XmlConfigSave.Change("speed/game", 128000);
+                    ManagerSettingsXML.Change("speed/game", 128000);
                     break;
                 case 3:
-                    XmlConfigSave.Change("speed/game", 256000);
+                    ManagerSettingsXML.Change("speed/game", 256000);
                     break;
                 case 4:
-                    XmlConfigSave.Change("speed/game", 512000);
+                    ManagerSettingsXML.Change("speed/game", 512000);
                     break;
                 case 5:
-                    XmlConfigSave.Change("speed/game", 1000000);
+                    ManagerSettingsXML.Change("speed/game", 1000000);
                     break;
                 case 6:
-                    XmlConfigSave.Change("speed/game", 2000000);
+                    ManagerSettingsXML.Change("speed/game", 2000000);
                     break;
                 case 7:
-                    XmlConfigSave.Change("speed/game", 3000000);
+                    ManagerSettingsXML.Change("speed/game", 3000000);
                     break;
                 case 8:
-                    XmlConfigSave.Change("speed/game", 5000000);
+                    ManagerSettingsXML.Change("speed/game", 5000000);
                     break;
                 case 9:
-                    XmlConfigSave.Change("speed/game", 10000000);
+                    ManagerSettingsXML.Change("speed/game", 10000000);
                     break;
                 case 10:
-                    XmlConfigSave.Change("speed/game", 25000000);
+                    ManagerSettingsXML.Change("speed/game", 25000000);
                     break;
             }
         }

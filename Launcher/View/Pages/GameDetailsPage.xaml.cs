@@ -39,7 +39,7 @@ namespace Launcher.View.Pages
 
             try
             {
-                Background.Source = new BitmapImage(new Uri(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Paths.librarycache, _name, $"{_name}_Background.png"), UriKind.Absolute));
+                BackgroundGameDetailsPage.Source = new BitmapImage(new Uri(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Paths.librarycache, _name, $"{_name}_Background.png"), UriKind.Absolute));
             }
             catch (Exception ex)
             {
@@ -259,7 +259,7 @@ namespace Launcher.View.Pages
                 }
             }
             else {
-                JsonConfidCreate.CreateLibraryFolders();
+                ManagerLibraryJson.CreateLibraryFolders();
             }
         }
     }

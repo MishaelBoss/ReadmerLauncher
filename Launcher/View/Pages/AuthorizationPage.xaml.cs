@@ -17,7 +17,7 @@ namespace Launcher.View.Pages
         }
         private void BackgroundUIFunction(object sender, EventArgs ea)
         {
-            if (Name.Text != string.Empty && Passwordbox.Password != string.Empty) Login.IsEnabled = true;
+            if (Name_AuthorizationPage.Text != string.Empty && Passwordbox_AuthorizationPage.Password != string.Empty) Login.IsEnabled = true;
             else Login.IsEnabled = false;
         }
 
@@ -28,8 +28,8 @@ namespace Launcher.View.Pages
 
         private void LoginClick(object sender, RoutedEventArgs e)
         {
-            string Username = Name.Text;
-            string Password = Passwordbox.Password;
+            string Username = Name_AuthorizationPage.Text;
+            string Password = Passwordbox_AuthorizationPage.Password;
 
             if (Internet.connect())
             {
@@ -62,7 +62,7 @@ namespace Launcher.View.Pages
                                         try
                                         {
                                             Directory.CreateDirectory(Paths.avatarcache);
-                                            CrateCookie.SaveLoginCookie(dbid, Username, Guid.NewGuid().ToString(), DateTime.Now.AddDays(7));
+                                            ManagerCookie.SaveLoginCookie(dbid, Username, Guid.NewGuid().ToString(), DateTime.Now.AddDays(7));
 
                                             var data = new
                                             {
@@ -87,7 +87,7 @@ namespace Launcher.View.Pages
                                             }*/
                                         }
 
-                                        ErrorLoginOrPassword.Visibility = Visibility.Hidden;
+                                        ErrorLoginOrPassword_AuthorizationPage.Visibility = Visibility.Hidden;
 
                                         Window parentWindow = Window.GetWindow(this);
                                         if (parentWindow != null)
@@ -97,12 +97,12 @@ namespace Launcher.View.Pages
                                     }
                                     else
                                     {
-                                        ErrorLoginOrPassword.Visibility = Visibility.Visible;
+                                        ErrorLoginOrPassword_AuthorizationPage.Visibility = Visibility.Visible;
                                     }
                                 }
                                 else
                                 {
-                                    ErrorLoginOrPassword.Visibility = Visibility.Visible;
+                                    ErrorLoginOrPassword_AuthorizationPage.Visibility = Visibility.Visible;
                                 }
                             }
                         }

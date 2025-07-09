@@ -14,7 +14,7 @@ namespace Launcher.View.Resources.Script
             if (!Directory.Exists(Paths.common)) Directory.CreateDirectory(Paths.common);
             if (!Directory.Exists(Paths.userdata)) Directory.CreateDirectory(Paths.userdata);
 
-            if (!File.Exists(LibraryfoldersFilePath)) JsonConfidCreate.CreateLibraryFolders();
+            if (!File.Exists(LibraryfoldersFilePath)) ManagerLibraryJson.CreateLibraryFolders();
         }
     }
 }

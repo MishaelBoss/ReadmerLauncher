@@ -14,7 +14,7 @@
 
     <Grid Background="#FF333333">
         <StackPanel>
-            <Image Name="Icon" Source="/View/Resources/Image/collapseproject_white.png" 
+            <Image Name="IconNotificationMessageWindow" Source="/View/Resources/Image/collapseproject_white.png" 
                        Width="30" Height="30" Margin="10" Visibility="Collapsed"/>
             <TextBlock Name="TitleText" Text="Вышла новая версия лаунчера"
                        Foreground="White" FontSize="16" FontWeight="Bold" Margin="10" HorizontalAlignment="Center"/>

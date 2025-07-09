@@ -150,7 +150,7 @@ namespace Launcher.View.Pages
             }
             else
             {
-                JsonConfidCreate.CreateLibraryFolders();
+                ManagerLibraryJson.CreateLibraryFolders();
             }
         }
 

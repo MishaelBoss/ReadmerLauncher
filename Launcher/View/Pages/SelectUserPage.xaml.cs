@@ -119,7 +119,7 @@ namespace Launcher.View.Pages
         {
             foreach (ButtonSelectUser button in btnGame)
             {
-                Content.Children.Add(button);
+                ListUsersContent.Children.Add(button);
             }
         }
 

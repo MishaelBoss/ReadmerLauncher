@@ -22,7 +22,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="20"/>
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="1" Name="Content" Orientation="Vertical"/>
+            <StackPanel Grid.Column="1" Name="ListUsersContent" Orientation="Vertical"/>
         </Grid>
     </Grid>
 </Page>

@@ -22,12 +22,14 @@ namespace Launcher.View.Resources.Script
 
                     string cookieFilePath = Path.Combine(dataConfig?.path, "login.cookie");
 
-                    var jsonCookie = File.ReadAllText(cookieFilePath);
-                    var dataCookie = JsonSerializer.Deserialize<CookieServer>(jsonCookie);
+                    if (File.Exists(cookieFilePath)) {
+                        var jsonCookie = File.ReadAllText(cookieFilePath);
+                        var dataCookie = JsonSerializer.Deserialize<CookieServer>(jsonCookie);
 
-                    if (File.Exists(Path.Combine(dataConfig?.path, "login.cookie")))
-                    {
-                        LoadData(dataCookie.id);
+                        if (File.Exists(Path.Combine(dataConfig?.path, "login.cookie")))
+                        {
+                            LoadData(dataCookie.id);
+                        }
                     }
                 }
             }

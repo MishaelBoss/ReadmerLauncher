@@ -21,12 +21,12 @@
                 <ColumnDefinition Width="50"/>
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="1">
-                <Label Name="ErrorLoginOrPassword" Content="Неверный логин или пароль" Foreground="#FFA200" HorizontalAlignment="Center" Visibility="Hidden"/>
+                <Label Name="ErrorLoginOrPassword_AuthorizationPage" Content="Неверный логин или пароль" Foreground="#FFA200" HorizontalAlignment="Center" Visibility="Hidden"/>
                 <StackPanel>
                     <Label Content="Имя пользователя" Foreground="White" FontSize="20" FontWeight="Medium"/>
-                    <TextBox x:Name="Name" Height="40" FontWeight="Medium" FontSize="20" VerticalContentAlignment="Center"/>
+                    <TextBox x:Name="Name_AuthorizationPage" Height="40" FontWeight="Medium" FontSize="20" VerticalContentAlignment="Center"/>
                     <Label Content="Пароль" Foreground="White" FontSize="20" FontWeight="Medium"/>
-                    <PasswordBox x:Name="Passwordbox" Height="40" FontWeight="Medium" FontSize="20" VerticalContentAlignment="Center" PasswordChar="*"/>
+                    <PasswordBox x:Name="Passwordbox_AuthorizationPage" Height="40" FontWeight="Medium" FontSize="20" VerticalContentAlignment="Center" PasswordChar="*"/>
                 </StackPanel>
             </Grid>
         </Grid>

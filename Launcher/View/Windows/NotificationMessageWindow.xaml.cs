@@ -24,8 +24,8 @@ namespace Launcher.View.Windows
             ContentText.Text = message;
             if (image != null)
             {
-                Icon.Source = image;
-                Icon.Visibility = Visibility.Visible;
+                IconNotificationMessageWindow.Source = image;
+                IconNotificationMessageWindow.Visibility = Visibility.Visible;
             }
             if (onClick != null) LinkText.Visibility = Visibility.Visible;
             else LinkText.Visibility = Visibility.Hidden;

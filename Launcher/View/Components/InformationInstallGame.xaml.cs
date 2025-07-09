@@ -78,11 +78,11 @@ namespace Launcher.View.Components
             {
                 string LibraryfoldersFilePath = Path.Combine(Paths.work, Files.LibraryfoldersJson);
 
-                if(!File.Exists(LibraryfoldersFilePath)) JsonConfidCreate.CreateLibraryFolders();
+                if(!File.Exists(LibraryfoldersFilePath)) ManagerLibraryJson.CreateLibraryFolders();
 
                 try
                 {
-                    JsonConfidCreate.Create(id,SetName, pathInstallation);
+                    ManagerLibraryJson.Create(id,SetName, pathInstallation);
                     if (isDesktop) CreateIcon.CreateShortcut(ShortcutLocation.DESKTOP, SetName);
                     else if (isStartMenu) CreateIcon.CreateShortcut(ShortcutLocation.START_MENU, SetName);
                     else if (isDesktop && isStartMenu) CreateIcon.CreateShortcut(ShortcutLocation.All, SetName);

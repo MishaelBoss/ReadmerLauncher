@@ -64,7 +64,7 @@ namespace Launcher.View.Pages
         {
             foreach (CartGame button in btnGame)
             {
-                Content.Children.Add(button);
+                HomeMainContent.Children.Add(button);
             }
         }
     }

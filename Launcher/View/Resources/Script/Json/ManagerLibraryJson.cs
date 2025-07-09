@@ -5,7 +5,7 @@ using System.Windows;
 
 namespace Launcher.View.Resources.Script.Json
 {
-    public class JsonConfidCreate
+    public class ManagerLibraryJson
     {
         public static void CreateLibraryFolders() {
             var defaultData = new

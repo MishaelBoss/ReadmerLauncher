@@ -16,7 +16,7 @@
 
     <Grid>
         <Label Content="Главная" Foreground="White" FontSize="40" VerticalAlignment="Top" HorizontalAlignment="Center"/>
-        <StackPanel Grid.Row="1" Name="Content" Orientation="Horizontal"/>
+        <StackPanel Grid.Row="1" Name="HomeMainContent" Orientation="Horizontal"/>
         <Grid>
             <Frame Content="{Binding ContentPage}" NavigationUIVisibility="Hidden"/>
         </Grid>

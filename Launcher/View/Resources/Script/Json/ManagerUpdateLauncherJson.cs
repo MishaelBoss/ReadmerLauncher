@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using System.Net.Http;
 
-namespace Launcher.View.Resources.Script
+namespace Launcher.View.Resources.Script.Json
 {
     public class CheckUpdate
     {

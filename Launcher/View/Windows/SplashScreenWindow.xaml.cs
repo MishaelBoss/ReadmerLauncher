@@ -54,7 +54,7 @@ namespace Launcher.View.Windows
                     var json = File.ReadAllText(pathConfig);
                     var data = JsonSerializer.Deserialize<Config>(json);
 
-                    if (Directory.Exists(folder) && File.Exists(Path.Combine(data?.path, "login.cookie")) && ReaderCookie.IsUserLoggedIn(username))
+                    if (Directory.Exists(folder) && File.Exists(Path.Combine(data?.path, "login.cookie")) && ManagerCookie.IsUserLoggedIn(username))
                     {
                         isAnyUserLoggedIn = true;
                         loggedInUsername = username;

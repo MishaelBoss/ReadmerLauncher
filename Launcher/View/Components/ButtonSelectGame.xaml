@@ -13,8 +13,8 @@
                 <ColumnDefinition Width="40"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Image Grid.Column="0" Name="Icon"/>
-            <Label Grid.Column="1" Name="Name"/>
+            <Image Grid.Column="0"/>
+            <Label Grid.Column="1"/>
         </Grid>
     </Button>
 </UserControl>

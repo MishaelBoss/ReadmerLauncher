@@ -1,4 +1,5 @@
-﻿using Launcher.View.Windows;
+﻿using Launcher.View.Resources.Script.Json;
+using Launcher.View.Windows;
 using Microsoft.Extensions.Hosting;
 using System.Diagnostics;
 using System.Windows;

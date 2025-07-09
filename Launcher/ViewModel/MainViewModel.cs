@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Launcher.View.Pages;
+using Launcher.View.Resources.Script;
 using Launcher.View.Resources.Script.Cookie;
 using Launcher.View.Windows;
 using MvvmCross.ViewModels;
@@ -92,8 +93,7 @@ namespace Launcher.ViewModel
         #endregion
 
         private void Logout() {
-
-            LogoutCookie.DeleteCookie("test2");
+            ManagerCookie.DeleteCookie(UserSession.CurrentUser.Username);
 
             Application.Current.MainWindow.Close();
             

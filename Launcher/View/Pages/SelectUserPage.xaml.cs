@@ -34,10 +34,19 @@ namespace Launcher.View.Pages
             {
                 new Thread(() =>
                 {
-                    Application.Current.Dispatcher.Invoke(() =>
-                    {
-                        SearchFolder();
-                    });
+                    try {
+
+                        Application.Current.Dispatcher.BeginInvoke(() =>
+                        {
+                            SearchFolder();
+                        });
+                    }
+                    catch (Exception ex){
+                        Loges.LoggingProcess(
+                            level: LogLevel.WARN, 
+                            ex: ex
+                        );
+                    }
                 }).Start();
             }
             else

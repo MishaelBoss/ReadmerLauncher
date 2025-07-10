@@ -5,8 +5,10 @@ using Launcher.View.Resources.Script.Game;
 using Launcher.View.Resources.Script.Json;
 using Newtonsoft.Json.Linq;
 using Npgsql;
+using System;
 using System.Diagnostics;
 using System.IO;
+using System.Net.Http;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -41,9 +43,26 @@ namespace Launcher.View.Pages
             {
                 BackgroundGameDetailsPage.Source = new BitmapImage(new Uri(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Paths.librarycache, _name, $"{_name}_Background.png"), UriKind.Absolute));
             }
+            catch (FileNotFoundException ex)
+            {
+                Loges.LoggingProcess(
+                    level: LogLevel.ERROR,
+                    ex: ex
+                );
+            }
+            catch (DirectoryNotFoundException ex)
+            {
+                Loges.LoggingProcess(
+                    level: LogLevel.WARN,
+                    ex: ex
+                );
+            }
             catch (Exception ex)
             {
-                Loges.LoggingProcess(LogLevel.ERROR, ex: ex);
+                Loges.LoggingProcess(
+                    level: LogLevel.ERROR,
+                    ex: ex
+                );
             }
 
             string AppmanifestFilePath = Path.Combine(Paths.work, $"appmanifest_{_name}.json");
@@ -164,43 +183,44 @@ namespace Launcher.View.Pages
         }
 
         /*CancellationTokenSource cancelTokenSource;
-        private void DownloadGame() {
-            try
-            {
-                if (cancelTokenSource == null || cancelTokenSource.IsCancellationRequested) cancelTokenSource = new CancellationTokenSource();
-                CancellationToken token = cancelTokenSource.Token;
+        public async Task DownloadGame(string url)
+        {
+            if (cancelTokenSource == null || cancelTokenSource.IsCancellationRequested) cancelTokenSource = new CancellationTokenSource();
 
-                Task.Run(async () =>
-                {
-                    HttpRequestMessage httpRequestMessage = new HttpRequestMessage() { Method = HttpMethod.Get, RequestUri = new Uri(updateContent.urlDownload) };
-                    ProgressMessageHandler progressMessageHandler = new ProgressMessageHandler(new HttpClientHandler() { AllowAutoRedirect = true });
-                    httpClient = new HttpClient(progressMessageHandler) { Timeout = Timeout.InfiniteTimeSpan };
-                    watch.Start();
-                    progressMessageHandler.HttpReceiveProgress += ProgressMessageHandler_HttpReceiveProgress;
-                    Stream streamFileServer = await httpClient.GetStreamAsync(httpRequestMessage.RequestUri);
-                    Stream fileStreamServer = new FileStream(zipPath, FileMode.OpenOrCreate, FileAccess.Write);
-                    try
-                    {
-                        await streamFileServer.CopyToAsync(fileStreamServer, Arguments.Speed_download_game, cancellationToken: token);
-                        cancelTokenSource.Dispose();
-                        streamFileServer.Dispose();
-                        fileStreamServer.Dispose();
-                        return;
-                    }
-                    catch (Exception e)
-                    {
-                        DownloadAppState.Dispatcher.Invoke(() => DownloadAppState.Text = "State: " + e.Message.ToString());
-                        LaunchGameButton.Dispatcher.Invoke(() => LaunchGameButton.IsEnabled);
-                        cancelTokenSource.Dispose();
-                        streamFileServer.Dispose();
-                        fileStreamServer.Dispose();
-                        return;
-                    }
-                }, cancellationToken: token);
-            }
-            catch (Exception ex)
+            CancellationToken token = cancelTokenSource.Token;
+
+            using (HttpClient client = new HttpClient())
             {
-                Loges.LoggingProcess(LogLevel.ERROR, ex: ex);
+                try
+                {
+                    using (var s = await client.GetStreamAsync(new Uri(""), token))
+                    {
+                        using (var fs = new FileStream(Paths.download, FileMode.Create))
+                        {
+                            await s.CopyToAsync(fs);
+                        }
+                    }
+                }
+                catch (HttpRequestException ex)
+                {
+                    Loges.LoggingProcess(
+                        level: LogLevel.ERROR, 
+                        ex: ex
+                    );
+                }
+                catch (OperationCanceledException ex) when (cancelTokenSource.IsCancellationRequested)
+                {
+                    Loges.LoggingProcess(
+                        level: LogLevel.INFO, 
+                        ex: ex
+                    );
+                }
+                catch (Exception ex) { 
+                    Loges.LoggingProcess(
+                        level: LogLevel.WARN, 
+                        ex: ex
+                    );
+                }
             }
         }*/
 
@@ -212,19 +232,40 @@ namespace Launcher.View.Pages
             }
             else
             {
+                var installWindow = InformationInstallGame.Instance;
+                installWindow.id = _id;
+                installWindow.SetName = _name;
+                installWindow.SetSize = "1323 MB";
                 try
                 {
-                    var installWindow = InformationInstallGame.Instance;
-                    installWindow.id = _id;
-                    installWindow.SetName = _name;
                     installWindow.SetIcon = new BitmapImage(new Uri(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Paths.librarycache, _name, $"{_name}_Background.png"), UriKind.Absolute));
-                    installWindow.SetSize = "1323 MB";
-                    installWindow.Visibility = Visibility.Visible;
+                }
+                catch (FileNotFoundException ex)
+                {
+                    Loges.LoggingProcess(
+                        level: LogLevel.ERROR,
+                        ex: ex
+                    );
+
+                    installWindow.SetIcon = new BitmapImage(new Uri(Path.Combine("pack://application:,,,/View/Resources/Image/NotImage.png", _name, $"{_name}_Background.png"), UriKind.Absolute));
+                }
+                catch (DirectoryNotFoundException ex)
+                {
+                    Loges.LoggingProcess(
+                        level: LogLevel.WARN,
+                        ex: ex
+                    );
+
+                    installWindow.SetIcon = new BitmapImage(new Uri(Path.Combine("pack://application:,,,/View/Resources/Image/NotImage.png", _name, $"{_name}_Background.png"), UriKind.Absolute));
                 }
                 catch (Exception ex)
                 {
-                    Loges.LoggingProcess(LogLevel.ERROR, ex: ex);
+                    Loges.LoggingProcess(
+                        level: LogLevel.ERROR,
+                        ex: ex
+                    );
                 }
+                installWindow.Visibility = Visibility.Visible;
             }
         }
 

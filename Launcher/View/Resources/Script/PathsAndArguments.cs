@@ -13,12 +13,10 @@ namespace Launcher.View.Resources.Script
     {
         public const string urlJSONUpdateLauncher = "https://raw.githubusercontent.com/RedmerGameAndTechnologies/JsonLauncher/refs/heads/main/VersionLauncher.json";
 
-        #region Confirm Update
         public static string execPath = Process.GetCurrentProcess().MainModule.FileName;
         public static string workingDir = Path.GetDirectoryName(execPath);
         public static string sourcePath = Path.Combine(workingDir, Path.GetFileName(execPath));
         public static string exenames = Path.GetFileName(sourcePath);
-        #endregion
 
         #region Settings
         public static string curverVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
@@ -54,13 +52,13 @@ namespace Launcher.View.Resources.Script
 
     class Paths
     {
-        public string Name { get; set; }
 
         #region Download Game
+        public string namegame { get; set; }
         public readonly string zipPath;
         public Paths(string name)
         {
-            Name = name;
+            namegame = name;
             zipPath = $@".\ChacheDownloadGame_{name}.zip";
         }
         public static string GetZipPath(string name)
@@ -68,12 +66,6 @@ namespace Launcher.View.Resources.Script
             return $@".\ChacheDownloadGame_{name}.zip";
         }
         public const string appTemlPath = "tempDirectoryUnzip";
-        #endregion
-
-        #region Confirm Update
-        public const string zipPathUpdate = @".\UpdateLaucnher.zip";
-        public const string exeLauncherUpdate = @".\NewLauncher.exe";
-        public const string exetraPath = @".\";
         #endregion
 
         #region Settings
